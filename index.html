@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>영어 지문 노트</title>
+<style>:root{--bg:#F3F6FB;--card:#fff;--ink:#16233B;--mut:#5C6980;--line:#DAE1EE;--blue:#2457E6;--blue-soft:#E4ECFF;--mark:#FFE45C;--film:#F3B9B6;--film-ink:#A8322E;--ok:#1C8A57;--ok-soft:#DDF3E8;--bad:#CC3B36;--bad-soft:#FBE3E1;--warn:#B7791F;--warn-soft:#FFF1CF}
+@media(prefers-color-scheme:dark){:root{--bg:#0E1523;--card:#162033;--ink:#E7ECF6;--mut:#9BA8C0;--line:#263249;--blue:#86A6FF;--blue-soft:#1D2B4D;--mark:rgba(255,214,10,.34);--film:#5A2A30;--film-ink:#FFB4AE;--ok:#52D197;--ok-soft:#14352A;--bad:#FF7B74;--bad-soft:#40201F;--warn:#F0B84F;--warn-soft:#3B2F12}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 -apple-system,"Apple SD Gothic Neo","Pretendard","Noto Sans KR","Malgun Gothic",system-ui,sans-serif;padding-top:env(safe-area-inset-top)}
+button,select,input{font:inherit;color:inherit}
+button{cursor:pointer;border:1px solid var(--line);background:var(--card);border-radius:10px;padding:8px 12px;min-height:38px}
+button:active{transform:scale(.98)}
+button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+button.pri{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}
+@media(prefers-color-scheme:dark){button.pri{color:#0E1523}}
+button.ghost{background:transparent}
+button.sm{min-height:30px;padding:3px 10px;font-size:13px;border-radius:8px}
+#app{max-width:720px;margin:0 auto;padding:0 16px calc(86px + env(safe-area-inset-bottom))}
+.top{display:flex;align-items:center;gap:10px;padding:16px 0 10px}
+.top h1{font-size:20px;margin:0;font-weight:700;letter-spacing:-.01em;flex:1}
+.top .back{min-height:34px;padding:4px 10px}
+h2{font-size:13px;color:var(--mut);margin:22px 0 8px;font-weight:600}
+/* nav */
+#nav{position:fixed;left:0;right:0;bottom:0;display:flex;background:var(--card);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom);z-index:20}
+#nav button{flex:1;border:0;border-radius:0;background:transparent;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 0 6px;color:var(--mut);font-size:12px;min-height:56px}
+#nav button.on{color:var(--blue);font-weight:700}
+#nav svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.seg{display:flex;background:var(--line);border-radius:10px;padding:3px;gap:3px;margin:6px 0 12px}
+.seg button{flex:1;border:0;background:transparent;min-height:34px;padding:4px 6px;border-radius:8px;font-size:14px;color:var(--mut)}
+.seg button.on{background:var(--card);color:var(--ink);font-weight:700;box-shadow:0 1px 2px rgba(0,0,0,.12)}
+.seg .badge{display:inline-block;min-width:18px;padding:0 5px;margin-left:4px;border-radius:9px;background:var(--bad);color:#fff;font-size:11px;line-height:18px}
+/* passage list */
+.plist{display:flex;flex-direction:column}
+.prow{display:block;width:100%;text-align:left;border:0;border-bottom:1px solid var(--line);background:transparent;border-radius:0;padding:12px 2px;min-height:60px}
+.prow .pt{font-weight:700;font-size:15.5px}
+.prow .pk{font-size:12px;color:var(--blue);margin-left:6px;font-weight:600}
+.prow .ps{display:block;color:var(--mut);font-size:13px;margin-top:1px}
+.prow .pbar{display:block;height:4px;background:var(--line);border-radius:2px;margin:7px 0 3px;overflow:hidden}
+.prow .pbar i{display:block;height:100%;background:var(--ok)}
+.prow .pm{font-size:12px;color:var(--mut)}
+/* sentences */
+.sent{padding:12px 0 12px 12px;border-bottom:1px solid var(--line);border-left:3px solid transparent;margin-left:-3px}
+.sent.know{border-left-color:var(--ok)}
+.sent.unsure{border-left-color:var(--warn)}
+.sent.flash{animation:fl 1.6s}
+@keyframes fl{0%,60%{background:var(--blue-soft)}100%{background:transparent}}
+.en{font-family:Georgia,"Noto Serif","Times New Roman",serif;font-size:17.5px;line-height:1.72}
+.ko{font-size:14px;color:var(--mut);margin-top:5px;line-height:1.6;border-radius:6px}
+.mode-hide .sent{cursor:pointer}
+.mode-hide .sent:not(.open) .ko,.film{color:transparent;background:var(--film);position:relative;user-select:none;min-height:30px}
+.mode-hide .sent:not(.open) .ko::after,.film::after{content:"탭해서 해석 보기";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--film-ink);font-size:12.5px;font-weight:600}
+.mode-hide .sent:not(.open) .mkrow,.mode-hide .sent:not(.open) .gn{display:none}
+mark.vw{background:linear-gradient(transparent 52%,var(--mark) 52%);color:inherit;border-radius:2px;cursor:pointer;padding:0 1px}
+.mk-chip{display:inline-block;font:700 11px/1 -apple-system,"Apple SD Gothic Neo",sans-serif;background:var(--blue-soft);color:var(--blue);border-radius:5px;padding:3px 6px;margin-right:6px;vertical-align:2px}
+.mkrow{display:flex;gap:6px;margin-top:8px}
+.mkrow button{min-height:28px;padding:2px 10px;font-size:12.5px;border-radius:14px;color:var(--mut)}
+.mkrow button.on[data-v=know]{background:var(--ok-soft);border-color:var(--ok);color:var(--ok);font-weight:700}
+.mkrow button.on[data-v=unsure]{background:var(--warn-soft);border-color:var(--warn);color:var(--warn);font-weight:700}
+.gn{margin-top:8px;padding:8px 10px;background:var(--blue-soft);border-radius:8px;font-size:13px;color:var(--ink)}
+.gn p{margin:0}.gn p+p{margin-top:4px}
+.toolbar{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:4px 0 6px;font-size:13px;color:var(--mut)}
+.toolbar label{display:flex;align-items:center;gap:5px;min-height:30px}
+.toolbar .sp{flex:1}
+.sticky{position:sticky;top:0;background:var(--bg);z-index:5;padding-top:env(safe-area-inset-top)}
+/* card mode */
+.bigcard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 18px;margin:8px 0;min-height:260px;cursor:pointer;display:flex;flex-direction:column;justify-content:center;gap:14px}
+.bigcard .en{font-size:21px}
+.bigcard .ko{font-size:15px;margin:0;min-height:48px}
+.cnav{display:flex;gap:8px;margin-top:10px}.cnav button{flex:1}
+.cnt{text-align:center;color:var(--mut);font-size:13px}
+.empty{padding:28px 8px;text-align:center;color:var(--mut)}
+/* vocab popup */
+#pop{position:fixed;left:12px;right:12px;bottom:calc(68px + env(safe-area-inset-bottom));max-width:480px;margin:0 auto;background:var(--ink);color:var(--bg);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:10px;z-index:30;box-shadow:0 6px 24px rgba(0,0,0,.3)}
+#pop[hidden]{display:none}
+#pop b{font-size:17px;font-family:Georgia,serif}
+#pop span{flex:1}
+#pop button{background:transparent;color:inherit;border-color:rgba(255,255,255,.3);min-height:32px;padding:2px 10px}
+#toast{position:fixed;left:50%;bottom:calc(76px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:20px;font-size:13px;z-index:40;opacity:0;pointer-events:none;transition:opacity .2s}
+#toast.on{opacity:1}
+/* vocab list in study */
+.vlist{display:grid;grid-template-columns:1fr 1fr;gap:6px 14px;font-size:14px}
+.vlist div{padding:4px 0;border-bottom:1px solid var(--line)}
+.vlist b{font-family:Georgia,serif}
+.cta{display:block;width:100%;margin-top:22px;min-height:46px}
+/* quiz */
+.sel{width:100%;min-height:42px;border:1px solid var(--line);border-radius:10px;background:var(--card);padding:6px 10px;margin-bottom:6px}
+.q{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin:12px 0}
+.qhead{display:flex;gap:8px;align-items:center;font-size:12.5px;color:var(--mut);margin-bottom:6px}
+.qhead .qno{background:var(--ink);color:var(--bg);border-radius:6px;padding:1px 8px;font-weight:700}
+.qhead .qpid{margin-left:auto}
+.qstem{font-weight:700;margin-bottom:8px}
+.qbody{font-family:Georgia,"Noto Serif",serif;font-size:16px;line-height:1.75;background:var(--bg);border-radius:10px;padding:10px 12px;margin-bottom:10px}
+.qbody p{margin:0 0 8px}.qbody p:last-child{margin:0}
+.qbody .given{font-weight:700;border:1px dashed var(--mut);border-radius:8px;padding:6px 8px;margin-bottom:8px}
+.qbody .pos{font:700 13px -apple-system,sans-serif;color:var(--blue);white-space:nowrap}
+.qbody .sum{border-top:1px dashed var(--mut);padding-top:8px;margin-top:8px}
+.blank{display:inline-block;min-width:120px;border-bottom:2px solid var(--ink);margin:0 3px;height:1em;vertical-align:-2px}
+.choices{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.ch{width:100%;text-align:left;padding:10px 12px;font-size:15px;line-height:1.45}
+.ch.pick{border-color:var(--blue);background:var(--blue-soft)}
+.ch.right{border-color:var(--ok);background:var(--ok-soft);font-weight:600}
+.ch.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.poschoices{display:flex;gap:6px}.poschoices .ch{text-align:center;padding:10px 0}
+.qfoot{display:flex;gap:8px;margin-top:10px}.qfoot button{flex:1}
+.exp{margin-top:10px;padding:10px 12px;border-radius:10px;font-size:14px;background:var(--blue-soft)}
+.exp.ok{background:var(--ok-soft)}.exp.no{background:var(--bad-soft)}
+.res{font-weight:700;margin-bottom:4px}
+.bi{border:0;border-bottom:2px solid var(--blue);background:transparent;border-radius:0;font:inherit;font-family:Georgia,serif;font-size:17.5px;text-align:center;padding:0 2px;min-width:3em;color:var(--ink)}
+.bi.ok{border-color:var(--ok);color:var(--ok);font-weight:700}
+.bi.bad{border-color:var(--bad);color:var(--bad);text-decoration:line-through}
+.ans{font-size:13px;color:var(--bad);margin-top:6px}
+.ordbox{min-height:44px;border:1px dashed var(--line);border-radius:10px;padding:6px;margin-bottom:8px;display:flex;flex-direction:column;gap:6px}
+.tile{width:100%;text-align:left;font-family:Georgia,serif;font-size:15px;line-height:1.5;padding:8px 10px}
+.tile .n{display:inline-block;background:var(--blue);color:#fff;border-radius:50%;width:20px;height:20px;line-height:20px;text-align:center;font:700 12px sans-serif;margin-right:6px}
+.tile.right{border-color:var(--ok);background:var(--ok-soft)}.tile.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.pool{display:flex;flex-direction:column;gap:6px}
+.note{font-size:12.5px;color:var(--mut);margin:6px 0}
+.field{display:flex;flex-direction:column;gap:4px;margin:10px 0}
+.field label{font-size:13px;color:var(--mut)}
+.field input,.field select{border:1px solid var(--line);border-radius:10px;background:var(--card);padding:8px 10px;min-height:42px;width:100%}
+.err{color:var(--bad);font-size:13.5px;margin:8px 0;white-space:pre-wrap}
+.spin{display:inline-block;width:14px;height:14px;border:2px solid var(--line);border-top-color:var(--blue);border-radius:50%;animation:sp .8s linear infinite;vertical-align:-2px;margin-right:6px}
+@keyframes sp{to{transform:rotate(360deg)}}
+/* vocab tab */
+.vi{padding:10px 0;border-bottom:1px solid var(--line)}
+.vi .vt{display:flex;align-items:center;gap:8px}
+.vi .vt b{font:700 18px Georgia,serif}
+.vi .vm{flex:1;color:var(--ink);font-size:15px}
+.hidem .vi .vm{color:transparent;background:var(--film);border-radius:5px;min-height:22px}
+.hidem .vi .vm.show{color:var(--ink);background:transparent}
+.vi .vs{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px;align-items:center}
+.chip{font-size:11.5px;padding:2px 8px;min-height:24px;border-radius:12px;color:var(--blue);background:var(--blue-soft);border-color:transparent}
+.sp1{flex:1}
+.flash2{background:var(--card);border:1px solid var(--line);border-radius:14px;min-height:220px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:20px;text-align:center;cursor:pointer;margin:10px 0}
+.flash2 .w{font:700 30px Georgia,serif}
+.flash2 .m{font-size:20px;min-height:30px}
+.flash2 .s{font-size:12.5px;color:var(--mut)}
+.mc{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.big{font:700 28px Georgia,serif;text-align:center;margin:18px 0 8px}
+.score{text-align:center;padding:20px 0}.score b{font-size:34px}
+.spellin{width:100%;min-height:48px;font-size:20px;text-align:center;border:2px solid var(--line);border-radius:12px;background:var(--card);padding:6px;font-family:Georgia,serif}
+.prog{height:4px;background:var(--line);border-radius:2px;margin:6px 0 10px;overflow:hidden}.prog i{display:block;height:100%;background:var(--blue)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+.exp{white-space:pre-line;line-height:1.6}
+details.lec{background:var(--card);border:1px solid var(--line);border-radius:12px;margin:6px 0;padding:0 12px}
+details.lec summary{cursor:pointer;padding:11px 0;font-weight:600;font-size:14px;list-style:none;display:flex;justify-content:space-between}
+details.lec summary::after{content:"+";color:var(--mut);font-weight:400}
+details.lec[open] summary::after{content:"–"}
+details.lec[open]{padding-bottom:8px}
+.lb{padding:8px 0;border-top:1px solid var(--line);font-size:14px}
+.lb b{display:block;margin-bottom:3px}
+.lb p{margin:2px 0;color:var(--ink)}
+.fl{padding:8px 0;border-top:1px solid var(--line)}
+.fl .fe{font:14.5px/1.55 Georgia,"Noto Serif",serif;margin-top:4px}
+.fl .fk{font-size:13px;color:var(--mut);margin-top:2px}
+
+.hint-ko{font:14px/1.6 -apple-system,"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;color:var(--mut);margin-top:8px;padding-top:8px;border-top:1px dashed var(--line)}
+body.hideko .hint-ko{display:none}
+</style></head>
+<body>
+<div id="app"></div>
+<div id="pop" hidden></div><div id="toast"></div>
+<nav id="nav">
+<button data-tab="study" class="on"><svg viewBox="0 0 24 24"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H11v15H5.5A1.5 1.5 0 0 0 4 20.5z"/><path d="M20 5.5A1.5 1.5 0 0 0 18.5 4H13v15h5.5a1.5 1.5 0 0 1 1.5 1.5z"/></svg>지문 공부</button>
+<button data-tab="quiz"><svg viewBox="0 0 24 24"><path d="M4 20l1-4L16.5 4.5a2.1 2.1 0 0 1 3 3L8 19z"/><path d="M14 7l3 3"/></svg>문제 풀이</button>
+<button data-tab="vocab"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M7 3h10M8 11h8M8 15h5"/></svg>단어 공부</button>
+</nav>
+<script>const TEXTBOOK = [
+{
+ id:"tb-0", title:"교과서 L3 · 도입", sub:"Korea’s Heritage Recognized Abroad", kind:"Read On",
+ s:[
+  ["Korean pop culture is loved all over the world under the name “Korean Wave.”","한국 대중문화는 ‘한류’라는 이름으로 전 세계에서 사랑받는다."],
+  ["Korean pop music has topped global music charts.","한국 대중음악은 세계적인 음악 차트에서 1위를 차지했다."],
+  ["Korean films and TV shows attract fans from across the globe.","한국 영화와 TV 프로그램은 전 세계 팬들의 마음을 끈다."],
+  ["Now, beyond pop culture, the world is starting to pay attention to Korea’s traditional culture.","이제 대중문화를 넘어, 세계가 한국의 전통문화에 관심을 갖기 시작하고 있다."],
+  ["Let’s take a look at some Korean heritage recognized abroad.","해외에서 인정받은 한국의 유산을 살펴보자."]
+ ],
+ v:[["heritage","유산"],["attract","마음을 끌다"],["pay attention to","~에 관심을 갖다"]],
+ g:[
+  [0,"수동태 is loved: ‘사랑받는다’. under the name “…”: ~라는 이름으로."],
+  [1,"현재완료 has topped: 과거에 1위를 차지한 결과가 현재까지 이어짐."],
+  [3,"to pay attention: start의 목적어로 쓰인 to부정사(명사적 용법). pay attention to + 명사: ~에 관심을 갖다."],
+  [4,"과거분사구 후치수식: some Korean heritage {recognized abroad} = heritage [which is recognized abroad]. 명사와 수동 관계 → 과거분사. (능동 관계면 현재분사: a boy singing)"]
+ ],
+ q:[
+  {kind:"내용 일치",q:"윗글의 내용과 일치하지 않는 것은?",
+   choices:["한국 대중문화는 ‘한류’라는 이름으로 전 세계에서 사랑받는다.","한국 대중음악은 세계적인 음악 차트에서 1위를 차지했다.","한국 영화와 TV 프로그램은 전 세계 팬들의 마음을 끈다.","세계가 한국의 전통문화에도 관심을 갖기 시작하고 있다.","한국의 전통문화는 이미 대중문화보다 더 큰 인기를 얻고 있다."],
+   a:4,exp:"본문은 세계가 전통문화에 ‘관심을 갖기 시작하고 있다’고만 했고, 대중문화보다 더 인기라는 말은 없다."},
+  {kind:"어법",q:"빈칸에 들어갈 말로 가장 적절한 것은?",b:{rep:[["recognized","__BLANK__"]]},
+   choices:["recognized","recognizing","which recognized","to recognize","being recognizing"],a:0,
+   exp:"heritage는 ‘인정받는’ 대상이므로 수동 관계 → 과거분사 recognized가 뒤에서 수식한다."}
+ ]
+},
+{
+ id:"tb-1", title:"교과서 L3 · 한지", sub:"Hanji, a Rising Star of the Louvre", kind:"Read On",
+ s:[
+  ["In Europe, paper is used for the restoration of cultural assets.","유럽에서는 종이가 문화재의 복원에 사용된다."],
+  ["For example, paper can be used to repair the damaged areas of paintings and other things made of paper.","예를 들어, 종이는 그림과 종이로 만들어진 다른 물건의 손상된 부분을 수선하는 데 사용될 수 있다."],
+  ["It can also bring new life to decaying furniture and sculptures by filling in the cracks.","또한 갈라진 틈을 메움으로써 부패하는 가구와 조각품에 새로운 생명을 불어넣을 수 있다."],
+  ["For such purposes, the Japanese paper called washi has been widely used.","그러한 목적으로 와시라고 불리는 일본 종이가 널리 사용되어 왔다."],
+  ["The Louvre Museum in France was no exception.","프랑스의 루브르 박물관도 예외가 아니었다."],
+  ["However, a Korean who was working at the Louvre in 2014 wanted to let the world know the value of hanji, traditional handmade Korean paper.","그러나, 2014년에 루브르 박물관에서 일하고 있던 한 한국인은 한국의 전통 수제 종이인 한지의 가치를 세계에 알리고 싶었다."],
+  ["He convinced the head of the museum’s restoration team to read his study on the comparison of traditional papers from Korea and Japan.","그는 박물관 복원팀의 책임자를 설득하여 한국과 일본의 전통 종이의 비교에 관한 자신의 연구를 읽게 했다."],
+  ["After reading his study, the Louvre became interested in hanji and carried out an experiment to see whether it would be suitable for use in restoration.","그의 연구를 읽은 후, 루브르 박물관은 한지에 관심을 갖게 되었고, 그것이 복원에 사용하기에 적합한지를 알아보기 위해 실험을 수행했다."],
+  ["They wet both washi and hanji to compare their durability.","그들은 내구성을 비교하기 위해 와시와 한지를 적셨다."],
+  ["Ultimately, hanji was found to be more durable than washi.","결국 한지가 와시보다 내구성이 더 강한 것으로 밝혀졌다."],
+  ["Unlike washi, which has its fibers lined up in one direction, hanji is made with both horizontal and vertical fibers.","와시는 섬유들이 한 방향으로 배열되어 있는데 이와 달리, 한지는 가로와 세로로 된 섬유들로 만들어진다."],
+  ["This means that the fibers in hanji are more closely woven, making the paper stronger.","이것은 한지의 섬유들이 더 촘촘하게 짜여 있어서 종이를 더 튼튼하게 만든다는 것을 의미한다."],
+  ["This also allows hanji to maintain its original size and shape better when there is a change in its moisture content.","이것은 또한 수분 함량에 변화가 있을 때 한지가 원래의 크기와 모양을 더 잘 유지하도록 해준다."],
+  ["Because of its durability, hanji was proven to be excellent material for restoration.","내구성으로 인해 한지가 복원에 우수한 재료임이 입증되었다."],
+  ["Thus, in 2017, the Louvre used hanji for the first time to restore a relic from its collection.","그래서 2017년에 루브르 박물관은 소장품 가운데 유물 하나를 복원하기 위해 한지를 처음으로 사용했다."],
+  ["Since then, hanji has been used more and more to restore various cultural assets of the museum.","그 이후로 한지는 루브르 박물관의 다양한 문화유산을 복원하는 데 점점 더 많이 사용되어 왔다."],
+  ["Who knows?","누가 알겠는가?"],
+  ["Maybe someday the Mona Lisa, one of the museum’s most famous paintings, will be restored with hanji.","언젠가는 루브르 박물관의 가장 유명한 그림 중 하나인 ‘모나리자’가 한지로 복원될지도 모른다."]
+ ],
+ v:[["restoration","복원",["restore"]],["asset","자산·문화재"],["decay","부패하다"],["exception","예외"],["durability","내구성",["durable"]],["fiber","섬유"],["relic","유물"],["moisture","수분"],["convince","설득하다"],["suitable","적합한"],["ultimately","결국"],["carry out","수행하다",["carried out"]]],
+ g:[
+  [1,"be used to + 동사원형: ~하는 데 사용되다. (비교: be used to -ing = ~에 익숙하다 / used to + 동사원형 = ~하곤 했다) things {made of paper}: 과거분사구가 things를 수식."],
+  [3,"현재완료 수동태 has been widely used: (지금까지) 널리 사용되어 왔다. {called washi}는 which is called washi의 과거분사구."],
+  [5,"주격 관계대명사 who: a Korean [who was working …]. 주어는 a Korean, 동사는 wanted. / 사역동사 let + 목적어 + 동사원형(know): to를 쓰지 않는다."],
+  [6,"convince + 목적어 + to부정사: ~를 설득하여 ~하게 하다. (ask, tell, want, allow, advise도 같은 형태)"],
+  [7,"명사절 접속사 whether: ~인지 아닌지. see의 목적어 역할. to see: to부정사 부사적 용법(목적)."],
+  [9,"계속적 용법 , which: washi에 대한 추가 설명 ‘그런데 그것은’. 계속적 용법에서는 that 불가, 생략 불가."],
+  [10,"분사구문(연속동작) , making the paper stronger = and it makes the paper stronger. 결과를 나타낸다."],
+  [11,"allow + 목적어 + to부정사: ~가 …하도록 해주다. when 이하는 시간의 부사절."],
+  [12,"be proven to be: ~임이 입증되다. Because of + 명사구(its durability)."],
+  [13,"to restore: to부정사 부사적 용법(목적). for the first time: 처음으로."]
+ ],
+ q:[
+  {kind:"내용 일치",q:"윗글의 내용과 일치하지 않는 것은?",
+   choices:["유럽에서는 종이가 문화재 복원에 사용된다.","루브르 박물관도 일본의 와시를 널리 사용해 왔다.","루브르는 와시와 한지를 적셔서 내구성을 비교했다.","와시는 한지보다 섬유가 가로·세로로 촘촘하게 짜여 있다.","2017년에 루브르는 소장품 복원에 한지를 처음 사용했다."],
+   a:3,exp:"가로·세로 섬유로 촘촘히 짜인 것은 한지이다. 와시는 섬유가 한 방향으로 배열되어 있다."},
+  {kind:"어법",q:"빈칸에 들어갈 말로 가장 적절한 것은?",b:{rep:[["Korean who was","Korean __BLANK__ was"]]},
+   choices:["who","which","what","whom","whose"],a:0,
+   exp:"선행사 a Korean(사람) 뒤에 바로 동사 was working이 오므로 주격 관계대명사 who가 알맞다."},
+  {kind:"어법",q:"빈칸에 들어갈 말로 가장 적절한 것은?",b:{rep:[["to maintain","__BLANK__"]]},
+   choices:["maintain","to maintain","maintaining","maintained","to maintaining"],a:1,
+   exp:"allow + 목적어 + to부정사 구조이므로 to maintain이 알맞다."},
+  {kind:"이유 파악",q:"한지가 와시보다 내구성이 강한 이유로 본문에 언급된 것은?",
+   choices:["섬유가 한 방향으로만 배열되어 있어서","가로와 세로 섬유가 더 촘촘하게 짜여 있어서","가격이 와시보다 저렴해서","루브르 박물관이 직접 만들어서","수분을 잘 흡수해서"],
+   a:1,exp:"“the fibers in hanji are more closely woven, making the paper stronger”에서 확인된다."}
+ ]
+},
+{
+ id:"tb-2", title:"교과서 L3 · 호미", sub:"Homi, Gardeners’ New Favorite", kind:"Read On",
+ s:[
+  ["Search for “Korean homi” on any online platform, and you can find reviews like these:","어떤 온라인 플랫폼에서든 ‘한국 호미’를 검색해 보라, 그러면 다음과 같은 리뷰를 찾을 수 있다:"],
+  ["Lina: This is the best gardening tool I have ever had.","Lina: 이것은 제가 가진 최고의 원예 도구입니다."],
+  ["Oliver: If you enjoy gardening, this will for sure give you extra pleasure.","Oliver: 당신이 정원 가꾸기를 즐긴다면, 이것은 분명히 당신에게 특별한 즐거움을 줄 것입니다."],
+  ["Benjamin: Whatever you may expect, this is beyond your imagination.","Benjamin: 당신이 무엇을 기대하든, 이것은 당신의 상상을 초월합니다."],
+  ["Also, there are many videos praising the homi and showing how to use it.","또한, 호미를 칭찬하고 그것을 어떻게 사용하는지 보여 주는 동영상이 많이 있다."],
+  ["The Korean homi is becoming the hot new tool gardeners around the world must have.","한국의 호미는 전 세계의 정원 가꾸는 사람들이 반드시 가져야 하는 새로운 인기 도구가 되고 있다."],
+  ["What is a homi and why is it so popular?","호미는 무엇이며 왜 이렇게 인기가 있을까?"],
+  ["The Korean homi is a traditional farming tool that has gotten a lot of attention, not in Korea but in countries like the United States and Australia.","한국의 호미는 한국이 아닌 미국, 호주와 같은 나라에서 많은 관심을 받고 있는 전통 농기구이다."],
+  ["In 2019, a video of how to use a homi spread quickly and widely on the Internet.","2019년에 호미 사용법에 관한 동영상이 인터넷에서 빠르게 널리 퍼졌다."],
+  ["Suddenly, the homi had become one of the top selling gardening tools on the largest online shopping site in the world.","갑자기 호미는 세계 최대의 온라인 쇼핑 사이트에서 가장 많이 팔리는 원예 도구 중 하나가 되었다."],
+  ["The homi became so popular because it can be used for a wide range of gardening tasks.","호미는 다양한 원예 작업에 사용될 수 있기 때문에 매우 인기가 많아졌다."],
+  ["In fact, people in Europe and the U.S. use separate gardening tools to weed, dig, and firm the ground.","사실, 유럽과 미국 사람들은 잡초를 뽑고, 땅을 파고, 다지기 위해 별도의 원예 도구를 사용한다."],
+  ["However, a homi has an ideal shape that makes all those activities possible with one tool.","그러나 호미는 이러한 모든 활동을 하나의 도구로 가능하게 하는 이상적인 모양을 가지고 있다."],
+  ["Its thinnest blade is used for weeding, and the sharp point is used to dig the ground.","호미의 가장 얇은 날은 잡초를 뽑을 때 사용되고, 뾰족한 끝은 땅을 파는 데 사용된다."],
+  ["The flat side is used to firm the ground.","평평한 면은 땅을 다지는 데 사용된다."],
+  ["Next, a homi has a comfortable design.","다음으로, 호미는 편안한 디자인이다."],
+  ["The Korean homi is usually handmade by blacksmiths.","한국의 호미는 보통 대장장이들이 수작업으로 만든다."],
+  ["From decades of experience, they have found the best angles between the handle and the blade so that users can tend gardens without pain in their arms and hands.","수십 년의 경험으로, 그들은 사용자가 팔과 손에 통증 없이 정원을 가꿀 수 있도록 손잡이와 날 사이의 최적의 각도를 찾아냈다."],
+  ["During the manufacturing process, a homi is hammered several times by hand, which makes it stronger and more elaborate.","제조 과정 동안 호미를 손으로 수차례 망치질하는데, 이것이 호미를 더 튼튼하고 정교하게 만든다."],
+  ["This is what differentiates the handmade Korean homi from gardening tools made by machine.","이것이 수작업으로 만든 한국 호미를 기계로 만든 원예 도구와 차별화시키는 점이다."],
+  ["As you see above, the reputation of Korean heritage is spreading throughout the world.","위에서 본 것처럼, 한국 유산의 명성이 전 세계로 퍼지고 있다."],
+  ["This proves that the world is discovering its value and potential.","이는 세계가 그 가치와 잠재력을 발견하고 있다는 것을 증명한다."],
+  ["What do you think will be the next Korean heritage item that will be recognized abroad?","해외에서 인정받을 다음 한국 유산은 무엇이라고 생각하는가?"]
+ ],
+ v:[["gardener","정원 가꾸는 사람"],["platform","플랫폼"],["weed","잡초를 뽑다"],["firm","다지다"],["blade","날"],["blacksmith","대장장이"],["manufacture","제조하다",["manufacturing"]],["elaborate","정교한"],["reputation","명성"],["potential","잠재력"],["differentiate","차별화하다"],["tend","돌보다"],["heritage","유산"]],
+ g:[
+  [0,"명령문, and ~: …해라, 그러면 ~할 것이다 (= If you search for …, you can find …). 명령문 + or ~는 ‘…해라, 그렇지 않으면’."],
+  [1,"목적격 관계대명사 생략: the best gardening tool [(that) I have ever had]. have ever had의 목적어 자리가 비어 있으므로 목적격."],
+  [3,"복합관계대명사 whatever(양보): = No matter what you may expect. (whoever, whenever, wherever, however도 같은 짝)"],
+  [4,"현재분사구 후치수식: many videos {praising …} and {showing …}. = videos which praise … and show … / how to use it: 의문사 + to부정사."],
+  [5,"the hot new tool [(that) gardeners … must have]: 목적격 관계대명사 생략."],
+  [7,"주격 관계대명사절 [that has gotten a lot of attention] / not A but B: A가 아니라 B (A와 B는 같은 형태: in Korea / in countries)."],
+  [9,"one of the + 복수명사(tools). had become: 과거완료(과거 어느 시점까지 이미 일어난 일의 결과)."],
+  [11,"to weed, (to) dig, and (to) firm: to부정사 부사적 용법(목적) 병렬."],
+  [12,"make + 목적어 + 형용사(possible): ~를 …한 상태로 만들다. all those activities가 목적어, possible이 목적격 보어."],
+  [13,"be used for + 명사·동명사 / be used to + 동사원형: ~하는 데 사용되다."],
+  [17,"현재완료 have found. so that + 주어 + can ~: ~할 수 있도록(목적). (비교: so + 형용사 + that ~ = 너무 …해서 ~하다)"],
+  [18,"수동태 is hammered by hand + , which(계속적 용법) makes it stronger and more elaborate: make + 목적어 + 형용사."],
+  [19,"관계대명사 what = the thing which(선행사 포함). tools {made by machine}: 과거분사구 후치수식."],
+  [21,"접속사 that + 완전한 문장: proves의 목적어. 관계대명사 that과 달리 뒤 문장에 빠진 자리가 없다."],
+  [22,"What do you think will be …?: 의문사가 앞으로 나온 간접의문문. that will be recognized abroad: 주격 관계대명사절 + 미래 수동태."]
+ ],
+ q:[
+  {kind:"내용 일치",q:"윗글의 내용과 일치하지 않는 것은?",
+   choices:["‘한국 호미’를 검색하면 호평 리뷰들을 찾을 수 있다.","2019년 호미 사용법 동영상이 인터넷에서 빠르게 퍼졌다.","호미의 가장 얇은 날은 땅을 파는 데 사용된다.","대장장이들은 손잡이와 날 사이의 최적 각도를 찾아냈다.","제조 과정에서 호미는 손으로 여러 번 망치질된다."],
+   a:2,exp:"가장 얇은 날은 잡초를 뽑는 데(weeding), 뾰족한 끝이 땅을 파는 데 쓰인다."},
+  {kind:"어법",q:"빈칸에 들어갈 말로 가장 적절한 것은?",b:{rep:[["possible","__BLANK__"]]},
+   choices:["possible","possibly","to possible","be possible","possibility"],a:0,
+   exp:"make + 목적어 + 형용사 구조. 목적격 보어 자리에는 형용사 possible이 온다."},
+  {kind:"어법",q:"빈칸에 들어갈 말로 가장 적절한 것은?",b:{rep:[["is what differentiates","is __BLANK__ differentiates"]]},
+   choices:["that","what","which","whose","who"],a:1,
+   exp:"앞에 선행사가 없고 ‘~하는 것’이라는 뜻이므로 선행사를 포함한 관계대명사 what이 알맞다."},
+  {kind:"내용 이해",q:"호미가 인기를 얻은 이유로 본문에서 언급되지 않은 것은?",
+   choices:["하나의 도구로 여러 원예 작업을 할 수 있다.","손잡이와 날의 각도가 편안하게 설계되어 있다.","손으로 여러 번 두드려 더 튼튼하고 정교하다.","기계로 대량 생산되어 가격이 매우 저렴하다.","얇은 날, 뾰족한 끝, 평평한 면이 각각 다른 용도로 쓰인다."],
+   a:3,exp:"호미는 대장장이들이 수작업으로 만든다고 했다. 기계 생산·저렴한 가격은 언급되지 않았다."}
+ ]
+}
+];
+</script>
+<script>const MOCK = [
+{id:"m-1",no:1,exam:"6월 21번",kind:"함의 추론",sub:"정당화를 넘어선 언어: 자기방어에서 진실 추구로의 전환",
+ s:[
+  ["A classical ideal of truth and knowledge is the concept of a market for ideas: as thinking individuals, we encounter competing ideas, we evaluate them for their best fit to reality, and then let the best and brightest facts form the basis of our beliefs.","진리와 지식에 대한 고전적 이상은 아이디어를 위한 시장이라는 개념이다. 생각하는 개인으로서, 우리는 경쟁하는 아이디어들을 마주하고, 현실에 가장 잘 맞는지에 대해 그것들을 평가하며, 그러고 나서 가장 알맞고 뛰어난 사실들이 우리 신념의 기초를 형성하게 한다."],
+  ["That would be the scientist’s way, in theory at least.","그것은, 적어도 이론상으로는, 과학자의 방식일 것이다."],
+  ["But in practice, most of the time we are in a market for justifications.","그러나 실제로는, 대부분의 경우 우리는 ‘정당화를 위한 시장’에 있다."],
+  ["We shop for words not because they contain ideas, but because they contain stories about ideas.","우리는 그것들이 아이디어들을 포함하고 있어서가 아니라, 그것들이 아이디어들에 관한 이야기들을 담고 있기 때문에 단어들을 쇼핑한다."],
+  ["Often we are not seeking statements as facts to help us figure out what we should believe.","종종 우리는 우리가 무엇을 믿어야 할지 알아내는 데 도움을 줄 사실로서의 진술들을 찾고 있는 것이 아니다."],
+  ["Usually we already know what we believe.","대개 우리는 우리가 무엇을 믿는지 이미 알고 있다."],
+  ["What we seek are statements to justify those beliefs — the lawyer’s way.","우리가 찾는 것은 그러한 신념들을 정당화할 진술들이며, (이것은) 변호사의 방식이다."],
+  ["Language might be good for this function but we can use it to do better.","언어는 이러한 기능에 좋을지 모르지만 우리는 더 잘하기 위해 그것(언어)을 사용할 수 있다."],
+  ["By treating language with greater respect, we can achieve more than simple self-defense.","더 큰 존중으로 언어를 대함으로써, 우리는 단순한 자기방어 이상을 성취할 수 있다."]
+ ],
+ v:[["encounter","마주하다"],["evaluate","평가하다"],["justification","정당화",["justify"]],["seek","찾다"],["statement","진술"],["self-defense","자기방어"]],
+ g:[[3,"not because A, but because B: A 때문이 아니라 B 때문에."],[6,"What we seek: 관계대명사 what절이 주어. 보어가 복수(statements)라 동사는 are."]],
+ q:[{kind:"함의 추론",q:"밑줄 친 shop for words가 다음 글에서 의미하는 바로 가장 적절한 것은?",b:{rep:[["shop for words","<u>shop for words</u>"]]},
+  choices:["choose clear words for effective communication","change others’ ideas with persuasive language","examine factual evidence to build our ideas","evaluate all ideas with an open mind","gather words to back up our beliefs"],a:4,
+  exp:"우리는 이미 믿고 있는 것을 정당화해 줄 진술을 찾는다(the lawyer’s way). 따라서 ‘신념을 뒷받침할 말을 모으는 것’이 답이다."}]},
+
+{id:"m-2",no:2,exam:"6월 24번",kind:"제목",sub:"소셜 미디어 스크롤 중 발생하는 도파민 급증과 급락의 신경학적 기전",
+ s:[
+  ["Let’s look at what is occurring in your brain when scrolling on social media, a quick dopamine activity.","소셜 미디어상에서 스크롤할 때 당신의 뇌에서 일어나고 있는 일, 즉 빠른 도파민 활동을 살펴보자."],
+  ["You open your social media apps and immediately you notice you feel really good, your dopamine levels increase incredibly fast and pleasure is experienced in your brain.","당신은 소셜 미디어 앱을 열고 당신이 정말 기분이 좋다는 것을 즉시 알아차리게 되며, 당신의 도파민 수치는 믿을 수 없이 빠르게 증가하여 쾌락이 뇌에서 경험된다."],
+  ["The challenge this creates is as with everything in our universe: as the laws of physics explain, ‘what goes up, must come down’.","이것(도파민 급증)이 만들어 내는 난제는 우리 우주의 모든 것들과 마찬가지이다. 즉, 물리학 법칙이 설명하듯이, ‘올라가는 것은, 반드시 내려와야 한다.’"],
+  ["Your brain and body are always seeking something called ‘homeostasis’, which simply means balance.","당신의 뇌와 몸은 ‘항상성’이라고 불리는 어떤 것을 항상 추구하고 있는데, 그것은 단순히 균형을 의미한다."],
+  ["With this in mind, when dopamine levels increase incredibly fast when scrolling social media, the brain then thinks, ‘Wow, how are my dopamine levels so high?’","이것을 염두에 두고, 소셜 미디어를 스크롤할 때 도파민 수치가 믿을 수 없이 빠르게 증가하면, 뇌는 그때 ‘와, 내 도파민 수치가 어떻게 이렇게 높지?’라고 생각한다."],
+  ["In order to achieve homeostasis, or balance, the dopamine then has to quickly drop an equal amount below your baseline level in order to rebalance, making you feel even worse than before you started scrolling.","항상성, 즉 균형을 이루기 위해서, 그때 도파민은 다시 균형을 맞추기 위해 당신의 기준선 수치 아래로 동일한 양만큼 빠르게 떨어져야 하고, 스크롤을 시작하기 전보다 당신을 훨씬 더 기분이 나쁘게 만든다."]
+ ],
+ v:[["immediately","즉시"],["incredibly","믿을 수 없이"],["physics","물리학"],["baseline","기준선"],["homeostasis","항상성"]],
+ g:[[3,"계속적 용법 , which: 앞의 ‘homeostasis’에 대한 추가 설명."],[5,"분사구문(결과) , making you feel …: = and it makes you feel …. make + 목적어 + 원형부정사(feel)."]],
+ q:[{kind:"제목",q:"다음 글의 제목으로 가장 적절한 것은?",
+  choices:["The Dopamine Seesaw: How Scrolling Makes You Feel","Stop Blaming Social Media for All Your Problems!","Tips for Regaining Balance from Social Media","Dopamine: The Motivator to Take Action","The More Scrolling, the Less Interaction"],a:0,
+  exp:"도파민이 빠르게 오르면 균형을 위해 기준선 아래로 떨어진다는 ‘오르내림’ 구조 → 시소(Seesaw)."}]},
+
+{id:"m-3",no:3,exam:"6월 29번",kind:"어법",sub:"인간의 경험을 담아내는 문학의 지속적인 힘",
+ s:[
+  ["Literature, in its essence, is a testament to the enduring power of human creativity and expression.","문학은, 본질적으로, 인간의 창의성 및 표현의 지속적인 힘에 대한 증거이다."],
+  ["It transcends time and space, connecting us with the thoughts and emotions of people from all walks of life, across centuries and cultures.","그것은 시간과 공간을 초월하여, 수 세기 여러 문화에 걸쳐, 우리를 각계각층 사람들의 생각 및 감정과 연결해 준다."],
+  ["Despite the rise of new technologies and the ever-changing landscape of media, literature has retained its relevance and significance as a timeless art form.","새로운 기술의 부상과 끊임없이 변화하는 미디어 환경에도 불구하고, 문학은 시대를 초월한 예술 형식으로서 그 적절성과 중요성을 유지해 왔다."],
+  ["One reason for literature’s enduring power is its ability to capture and convey the complexities of the human experience.","문학의 지속적인 힘에 대한 한 가지 이유는 인간 경험의 복잡성을 포착하고 전달하는 그것(문학)의 능력이다."],
+  ["Through the written word, authors have the unique ability to explore the depths of human emotion, the nuances of relationships, and the challenges and triumphs of the human spirit.","글을 통해, 작가들은 인간 감정의 깊이, 관계의 미묘한 차이, 그리고 인간 정신의 도전과 승리를 탐구하는 독특한 능력을 갖춘다."],
+  ["Literature allows us to see ourselves reflected in the pages of a book, to empathize with characters different from ourselves, and to gain a deeper understanding of the human condition.","문학은 우리가 책의 페이지 속에 우리 자신이 투영되는 것을 보고, 우리 자신과는 다른 인물들에게 공감하며, 그리고 인간의 조건에 대한 더 깊은 이해를 얻도록 한다."]
+ ],
+ v:[["essence","본질"],["enduring","지속적인"],["walks of life","각계각층"],["retain","유지하다"],["relevance","적절성"],["significance","중요성"],["timeless","시대를 초월한"],["testament","증거"],["transcend","초월하다"],["nuance","미묘한 차이"]],
+ g:[[1,"분사구문 connecting us with …: 주절과 동시 동작(결과). 능동이므로 현재분사."],[3,"to capture and (to) convey: ability를 수식하는 to부정사 병렬."],[4,"문장의 본동사는 have. having은 준동사라 동사 역할을 못 한다 → 어법상 틀린 부분(원문 시험에서는 ④ having)."],[5,"see + 목적어 + 과거분사: ourselves가 ‘투영되는’ 수동 관계 → reflected. allows us to see, (to) empathize, (to) gain 병렬."]],
+ q:[{kind:"어법",pos:true,q:"다음 글의 밑줄 친 부분 중, 어법상 틀린 것은?",
+  b:{rep:[["connecting","① <u>connecting</u>"],["Despite","② <u>Despite</u>"],["convey","③ <u>convey</u>"],["authors have","authors ④ <u>having</u>"],["reflected","⑤ <u>reflected</u>"]]},
+  choices:["①","②","③","④","⑤"],a:3,
+  exp:"④ having → have. 주어 authors에 대한 본동사가 없다. ① 분사구문 ② Despite + 명사구 ③ to capture and (to) convey 병렬 ⑤ see + O + 과거분사."}]},
+
+{id:"m-4",no:4,exam:"6월 31번",kind:"빈칸 추론",sub:"인간 존재 내에서 지속되는 눈에 보이지 않는 변화와 유동성",
+ s:[
+  ["Our world is not just interconnected, but ever-changing, even if we can’t sense it.","우리의 세계는 단지 서로 연결되어 있을 뿐만 아니라, 우리가 감지할 수 없다고 할지라도, 끊임없이 변화하고 있다."],
+  ["While you’re reading this, you’re changing.","당신이 이것을 읽는 동안에도, 당신은 변하고 있다."],
+  ["You’re aging (a minute amount, thankfully), but the neural networks in your brain are also imperceptibly changing as you perceive each word.","(다행히도, 아주 미세한 양으로) 당신은 나이 들고 있지만, 당신이 각각의 단어를 인식하는 동안 뇌의 신경망 또한 감지할 수 없게 변화하고 있다."],
+  ["Crucially, even when we’re seemingly not doing anything of note, events are taking place outside your immediate surroundings that will change your life in the future, though you won’t realize it yet.","결정적으로, 우리가 겉보기에 주목할 만한 어떤 것도 하지 않는 것처럼 보일 때조차도, 당신의 직접적인 주변 환경 밖에서는 미래에 당신의 삶을 변화시킬 사건들이 일어나고 있지만, 당신은 아직 그것을 깨닫지 못할 것이다."],
+  ["Heraclitus, the ancient Greek philosopher, rightly pointed out, “No man ever steps in the same river twice. For it’s not the same river and he’s not the same man.”","고대 그리스 철학자 Heraclitus는 “어떤 사람도 같은 강물에 두 번 발을 담글 수 없다. 왜냐하면 그것은 같은 강물이 아니며 그는 같은 사람이 아니기 때문이다.”라고 정확히 지적했다."],
+  ["To that, Cratylus, a student of Heraclitus, added that we are not mere passive observers.","이에 대해, Heraclitus의 제자인 Cratylus는 우리는 단순한 수동적인 관찰자가 아니라고 덧붙였다."],
+  ["When you step in a river, you change it.","당신이 강물에 발을 담그면, ‘당신’이 그것을 변화시킨다."],
+  ["Nothing is static.","정적인 것은 아무것도 없다."],
+  ["Even microscopic changes add up over time.","극히 작은 변화들조차 시간이 지나면서 쌓인다."]
+ ],
+ v:[["sense","감지하다"],["minute","미세한"],["perceive","인식하다"],["seemingly","겉보기에"],["microscopic","극히 작은"],["neural","신경(계)의"],["imperceptibly","감지할 수 없게"],["static","정적인"]],
+ g:[[5,"not mere ~: 단순한 ~이 아닌. added that …: 접속사 that절."]],
+ q:[{kind:"빈칸 추론",q:"다음 빈칸에 들어갈 말로 가장 적절한 것은?",b:{rep:[["passive observers","__BLANK__"]]},
+  choices:["effective leaders","passive observers","accurate predictors","sensitive dreamers","influential philosophers"],a:1,
+  exp:"강물에 발을 담그면 ‘당신이 강물을 변화시킨다’. 즉 우리는 변화를 그저 지켜보는 수동적 관찰자가 아니다."}]},
+
+{id:"m-5",no:5,exam:"6월 32번",kind:"빈칸 추론",sub:"학습과 기억 회상에 미치는 환경적 다양성의 긍정적 영향",
+ s:[
+  ["Do you always study in the same spot?","항상 같은 장소에서 공부하는가?"],
+  ["Don’t.","그러지 마라."],
+  ["If you study in different places, that helps create variety, and that rich experience can reinforce what you are learning.","여러 장소에서 공부하면, 그것은 다양성을 만들도록 돕고, 그러한 풍부한 경험은 당신이 학습하고 있는 것을 강화할 수 있다."],
+  ["When several college students told us they did school work in different places rather than in some favorite nook, that habit reflected the research on learning.","몇몇 대학생들이 좋아하는 어떤 구석진 곳에서보다는 여러 장소에서 학교 과제를 한다고 우리에게 말했을 때, 그 습관은 학습에 관한 연구를 반영했다."],
+  ["Numerous experiments have found that if learners simply study in at least two different places, they are more likely to recall the material.","수많은 실험은 학습자가 최소 두 곳 이상의 다른 장소에서 단지 공부하기만 해도, 학습 자료를 기억할 가능성이 더 높다는 것을 발견했다."],
+  ["In one of the first such trials, two different groups studied a list of words.","그러한 초기 실험들 중 하나에서 두 개의 다른 집단이 하나의 단어 목록을 공부하였다."],
+  ["Some students returned to the same room twice while their counterparts spent the same amount of time divided between two locations.","일부 학생들은 같은 방으로 두 번 돌아왔지만, 상대 집단은 두 장소에서 동일하게 나뉜 시간을 보냈다."],
+  ["When asked to recall as many words on the list as possible, those who had moved around did far better.","목록에 있는 가능한 한 많은 단어를 기억해 보라고 요청받았을 때, 장소를 옮겨 다닌 학생들이 훨씬 더 잘했다."],
+  ["Variety creates rich association, even when those connections form in the background, totally outside of what we are consciously thinking.","다양성은 풍부한 연상을 만들어 내는데, 이러한 연결들이 배경에서, 즉 우리가 의식적으로 생각하고 있는 것의 완전히 바깥에서, 형성될 때조차도 (그러하다)."]
+ ],
+ v:[["association","연상"],["variety","다양성, 변화"],["reinforce","강화하다"],["reflect","반영하다"],["numerous","수많은"],["trial","실험, 시도"],["nook","구석진 곳"],["counterpart","상대"]],
+ g:[[4,"be likely to + 동사원형: ~할 가능성이 높다. have found that …: 현재완료 + that절."],[7,"When asked …: When (they were) asked의 분사구문(주어·be동사 생략). those who had moved around: 과거완료(요청받은 시점보다 앞선 행동)."]],
+ q:[{kind:"빈칸 추론",q:"다음 빈칸에 들어갈 말로 가장 적절한 것은?",b:{rep:[["recall the material","__BLANK__"]]},
+  choices:["recall the material","worsen their learning habits","develop anxiety and depression","create diverse networks of people","remember the features of the places"],a:0,
+  exp:"장소를 옮겨 다니며 공부한 학생들이 단어를 훨씬 더 잘 기억했다. 즉 학습한 내용을 더 잘 recall한다."}]},
+
+{id:"m-6",no:6,exam:"6월 33번",kind:"빈칸 추론",sub:"후각적 경험을 언어로 표현하고 식별하는 것의 어려움",
+ s:[
+  ["Talking about what something smells like is the most basic way of talking about our olfactory experience, and even this most basic way of talking about smells is challenging.","어떤 것이 무슨 냄새가 나는지에 관해 이야기하는 것은 우리의 후각 경험에 관해 이야기하는 가장 기본적인 방식인데, 냄새에 관해 이야기하는 이 가장 기본적인 방식조차도 어렵다."],
+  ["There are no words in the English language to describe smells in the same way in which “blue” or “green” describe colors.","영어에는 ‘파랑’이나 ‘초록’이 색을 묘사하는 것과 같은 방식으로 냄새를 묘사하는 단어가 없다."],
+  ["Instead, to talk about how something smells, we talk about the source of the odor.","대신, 어떤 것의 냄새가 어떤지에 관해 이야기하기 위해서, 우리는 그 냄새의 근원에 관해 이야기한다."],
+  ["Things smell “flowery,” “fruity,” or “fishy.”","사물들은 ‘꽃 같은’, ‘과일 같은’, 또는 ‘생선 같은’ 냄새가 난다."],
+  ["Furthermore, even the most familiar odors are difficult to identify when they are not experienced in their usual context.","게다가, 가장 익숙한 냄새조차도 일상의 맥락에서 경험되지 않을 때는 식별하기 어렵다."],
+  ["In one experiment the majority of participants was unable to name very common odors like beer, urine, roses, or motor oil.","한 실험에서 참가자 대다수는 맥주, 소변, 장미, 또는 모터 오일 같은 매우 흔한 냄새의 이름을 댈 수 없었다."],
+  ["Obviously, even those who couldn’t name any of these odors would drink the beer but not the urine or the motor oil.","분명하게, 이 냄새들 중 어떤 것도 이름을 대지 못한 사람들조차도 맥주는 마셔도 소변이나 모터 오일은 마시지 않을 것이다."],
+  ["This is how evolution has shaped our brain: We respond to odors correctly in many different ways, but we are not well-equipped to talk about them.","이것이 진화가 우리 뇌를 형성해 온 방식이다. 우리는 여러 다른 방식으로 냄새에 정확하게 반응하지만, 그에 대해 이야기할 채비가 잘 되어 있지 않다(능력이 잘 갖추어져 있지 않다)."]
+ ],
+ v:[["odor","냄새"],["identify","식별하다"],["majority","다수"],["participant","참가자"],["evolution","진화"],["olfactory","후각의"],["urine","소변"]],
+ g:[[1,"전치사 + 관계대명사: the same way in which = the same way that. “blue” or “green” describe colors."],[7,"This is how …: 이것이 ~한 방식이다. but 뒤의 we are not well-equipped to …가 빈칸 내용(말로 표현하는 능력 부족)."]],
+ q:[{kind:"빈칸 추론",q:"다음 빈칸에 들어갈 말로 가장 적절한 것은? [3점]",b:{rep:[["we are not well-equipped to talk about them","__BLANK__"]]},
+  choices:["we manage to identify their exact sources","we are not well-equipped to talk about them","our perceptions do not lead to strong emotions","we cannot distinguish them without visual information","these responses can be wrong without the usual context"],a:1,
+  exp:"글 전체가 ‘냄새는 말로 표현·식별하기 어렵다’는 내용이다. 올바르게 반응하지만(but) 말로 이야기할 능력은 부족하다는 흐름."}]},
+
+{id:"m-7",no:7,exam:"6월 34번",kind:"빈칸 추론",sub:"결과와 보상 평가를 통한 인간 행동의 적응",
+ s:[
+  ["A particularly powerful way in which human beings adapt and adjust to their circumstances is by changing behaviors in light of the consequences that they yield.","인간이 자신의 환경에 적응하고 맞춰가는 특히 강력한 방식은 그것(행동)들이 초래하는 결과에 비추어 행동을 바꾸는 것이다."],
+  ["For instance, a child who gets praised by her teacher for doing an exercise correctly is likely to continue doing the exercise in that way.","예를 들어, 운동을 정확히 한 것에 대해 선생님에게 칭찬받는 아이는 그런 방식으로 운동을 계속할 가능성이 있다."],
+  ["A dancer who feels that a particular conditioning exercise is not giving any results is likely to give that exercise up in favor of another one that seems more promising.","특정한 조건화 운동이 아무런 결과를 내지 못한다고 느끼는 무용수는 더 유망해 보이는 또 다른 운동을 (하기) 위해 그 운동을 포기할 가능성이 있다."],
+  ["In general, we tend to do things that bring us some kind of benefit or act in ways that help us avoid some kind of problem, discomfort, or disadvantage.","일반적으로, 우리는 우리에게 어떤 종류의 이익을 가져다주는 일을 하거나 우리가 어떤 종류의 문제, 불편함, 또는 불이익을 피하도록 돕는 방식으로 행동하는 경향이 있다."],
+  ["We also tend to do fewer things (or stop doing things) that lead to problems, discomfort, or disadvantages, and we tend to avoid acting in ways that do not bring any benefit or reward.","또한 우리는 문제, 불편함, 또는 불이익으로 이어지는 것들을 더 적게 하는 (또는 중단하는) 경향이 있으며, 어떤 이익이나 보상도 가져오지 않는 방식으로 행동하기를 피하는 경향이 있다."]
+ ],
+ v:[["adjust","맞추다"],["circumstance","환경, 상황"],["promising","유망한"],["yield","산출하다"],["in favor of","~을 위해"],["disadvantage","불이익"]],
+ g:[[0,"by + 동명사(changing …). the consequences [that they yield]: 목적격 관계대명사절."],[2,"give up in favor of ~: ~을 위해 포기하다. 관계대명사 that절이 another one을 수식."]],
+ q:[{kind:"빈칸 추론",q:"다음 빈칸에 들어갈 말로 가장 적절한 것은?",b:{rep:[["changing behaviors in light of the consequences","__BLANK__"]]},
+  choices:["changing behaviors in light of the consequences","quitting things even after receiving the benefits","facing new challenges in spite of all the difficulties","doing exercises regardless of the possible outcomes","taking risks with the expectation of the financial profits"],a:0,
+  exp:"칭찬받으면 계속하고 결과가 없으면 포기한다. 즉 행동의 결과(이익·보상)에 따라 행동을 바꾼다."}]},
+
+{id:"m-8",no:8,exam:"6월 36번",kind:"글의 순서",sub:"빙하기 이후의 기후 변화와 농경의 등장",
+ s:[
+  ["During the Ice Age, not only was the planet much colder, with ice sheets covering much of what we call the northern hemisphere today, but, crucially, it was much drier.","빙하기 동안, 지구는, 오늘날 우리가 북반구라고 부르는 지역의 대부분을 얼음층이 뒤덮은 채로, 훨씬 더 추웠을 뿐만 아니라, 결정적으로, 훨씬 더 건조했다."],
+  ["In Ireland, we often associate the cold with the wet but if it is really cold, there is far less evaporation, fewer clouds, and less rain.","아일랜드에서, 우리는 종종 추위를 습함과 연관 짓지만, 정말 춥다면, 증발 작용이 훨씬 더 적고, 구름도 더 적으며, 비도 더 적다.","(B)"],
+  ["Our world in the Ice Age was cold and dry, meaning it was difficult for plants to grow.","빙하기의 우리 지구는 춥고 건조했는데, 이는 식물이 자라기 어렵다는 것을 의미했다."],
+  ["In this type of climate, farming isn’t an option: it’s too risky to depend on any one piece of land to produce the energy you need.","이런 유형의 기후에서, 농사는 선택지가 아니다. 즉, 당신이 필요한 에너지를 생산하려고 어느 한 조각의 땅에 의존하는 것은 너무 위험하다.","(A)"],
+  ["As the temperature rose and the ice caps melted, we experienced a sudden explosion of life.","온도가 상승하고 만년설이 녹으면서, 우리는 갑작스러운 생명의 폭발을 경험했다."],
+  ["The world got warmer and wetter, and people started to live around places where they could make food grow most intensively.","지구는 더 따뜻하고 습해졌고, 그리고 사람들은 식량이 가장 집약적으로 자라게 할 수 있는 장소 주변에 살기 시작했다.","(C)"],
+  ["This didn’t happen overnight; it probably took thousands of years, with hunter-gatherers foraging and hunting, while doing a little side hustle in farming.","이것은 하룻밤 사이에 일어나지 않았고, 수렵채집인들이, 농사로 부업을 조금씩 하는 동안, 채집과 사냥을 하면서, 그것은 아마도 수천 년이 걸렸을 것이다."]
+ ],
+ v:[["hemisphere","반구"],["explosion","폭발"],["associate","연관 짓다"],["intensively","집약적으로"],["hunter-gatherer","수렵채집인"],["evaporation","증발"],["forage","채집하다"],["side hustle","부업"]],
+ g:[[0,"not only가 문두에 오면 도치: not only was the planet much colder (… but it was much drier). with + 명사 + 분사(ice sheets covering …): 부대상황."],[6,"with + 명사 + 분사(hunter-gatherers foraging and hunting): 부대상황 표현. while doing …: 접속사가 남은 분사구문."]],
+ q:[{kind:"글의 순서",q:"주어진 글 다음에 이어질 글의 순서로 가장 적절한 것은?",b:{order:{given:[0],A:[3,4],B:[1,2],C:[5,6]}},
+  choices:["(A) - (C) - (B)","(B) - (A) - (C)","(B) - (C) - (A)","(C) - (A) - (B)","(C) - (B) - (A)"],a:1,
+  exp:"주어진 글(춥고 건조) → (B) 추위와 건조함 설명, 식물이 자라기 어려움 → (A) 이런 기후에서는 농사 불가, 기온 상승 → (C) 따뜻하고 습해져 농경 시작."}]},
+
+{id:"m-9",no:9,exam:"6월 37번",kind:"글의 순서",sub:"작업 기억과 장기 기억 간의 상호작용 및 인지적 차이",
+ s:[
+  ["The big difference between working and long-term memory is that we are explicitly aware of the information in working memory, but we are not able to directly access the information in our long-term memory.","작업 기억과 장기 기억의 큰 차이는 우리가 작업 기억에 있는 정보는 명시적으로 인식하지만, 장기 기억에 있는 정보에는 직접 접근할 수 없다는 것이다."],
+  ["We access long-term memory by bringing the information into working memory.","우리는 정보를 작업 기억으로 불러옴으로써 장기 기억에 접근한다.","(C)"],
+  ["For example, right now you are not aware of all the actors you have ever seen.","예를 들어, 지금 당장 당신은 당신이 본 적 있는 모든 배우들을 인식하고 있지 않다."],
+  ["They are stored in your long-term memory outside your consciousness.","그들은 당신의 의식 밖의 장기 기억에 저장되어 있다."],
+  ["However, if I asked you to list all the actors, you would use your working memory to retrieve them one by one and reel them off.","하지만, 만약 내가 당신에게 모든 배우들을 열거하라고 요청하면, 당신은 작업 기억을 활용해 그들을 하나씩 생각해 내서 술술 말하게 될 것이다.","(B)"],
+  ["Your working memory can access your long-term memory and bring those memories to awareness.","당신의 작업 기억은 장기 기억에 접근하여 그 기억들을 인식으로 가져올 수 있다."],
+  ["But remember it has a limit of seven items or chunks.","하지만 그것은 7개 항목 또는 덩어리라는 한계가 있다는 것을 기억하라.","(A)"],
+  ["Each actor would be an item.","각 배우는 하나의 항목이 될 것이다."],
+  ["Try and hold all the actors you know in your explicit awareness.","당신이 아는 모든 배우를 당신의 명시적 인식 속에 떠올리려고 해보라."],
+  ["You might try to visualize a large group of them.","당신은 그들을 하나의 큰 무리로 시각화하려고 노력할지도 모른다."],
+  ["But you still would only be aware of a few actors at any one time.","하지만 당신은 여전히 한 번에 몇몇 배우만을 인식할 뿐이다."]
+ ],
+ v:[["explicitly","명시적으로",["explicit"]],["chunk","덩어리"],["access","접근하다"],["visualize","시각화하다"],["awareness","인식, 의식"],["consciousness","의식"],["retrieve","생각해 내다"],["reel off","술술 말하다"]],
+ g:[[0,"the difference between A and B is that ~: A와 B의 차이는 ~라는 것이다. be able to + 동사원형."],[4,"가정법 과거(if I asked …, you would use …). to retrieve: 목적의 to부정사."]],
+ q:[{kind:"글의 순서",q:"주어진 글 다음에 이어질 글의 순서로 가장 적절한 것은?",b:{order:{given:[0],A:[6,7,8,9,10],B:[4,5],C:[1,2,3]}},
+  choices:["(A) - (C) - (B)","(B) - (A) - (C)","(B) - (C) - (A)","(C) - (A) - (B)","(C) - (B) - (A)"],a:4,
+  exp:"주어진 글 → (C) 장기 기억은 작업 기억으로 불러와 접근, 배우 예시 → (B) However, 배우를 열거하라고 하면 작업 기억을 사용 → (A) But, 작업 기억의 한계(7개)."}]},
+
+{id:"m-10",no:10,exam:"6월 38번",kind:"문장 삽입",sub:"정보 부호화 및 기억 회상을 향상시키는 제스처의 역할",
+ s:[
+  ["If you gesture while describing an event, do you think you’ll be able to recall that event better than if you don’t?","만약 당신이 어떤 사건을 묘사하면서 제스처를 한다면, 제스처를 하지 않는 경우보다 그 사건을 더 잘 기억해 낼 수 있을 거라고 생각하는가?"],
+  ["We had adults watch videos of toy objects, animals, and people performing various, sometimes odd, actions: a chicken sliding to a policeman, a jogger bending down to touch his toes, a fence swinging shut on its own.","우리는 성인들에게 다양한, 때로는 기이한, 행동을 하는 장난감 물체, 동물, 그리고 사람들의 영상을 시청하게 했는데, (예를 들면) 경찰관에게로 미끄러지는 닭, 몸을 굽혀 발끝을 만지는 조깅하는 사람, 저절로 흔들리며 닫히는 울타리였다."],
+  ["We then tested the adults’ memories of these events immediately after the descriptions and three weeks later.","그 다음에 우리는 이 사건들에 대한 그 성인들의 기억을 (그 사건들에 대한) 묘사 직후와 3주 후에 테스트했다."],
+  ["Adults who were told to gesture while describing the events remembered more than adults who were told not to gesture, particularly several weeks later.","사건을 묘사하면서 제스처를 하라고 들은 성인들은 제스처를 하지 말라고 들은 성인들보다 더 많은 것을 기억했으며, 특히 몇 주 후에 (더 그러했다).","주어진 문장"],
+  ["To see if we’d get the same effects if people gestured on their own, we did the study again, but this time we gave the adults no instructions about gesture.","사람들이 스스로 제스처를 하는 경우에도 동일한 결과를 얻을 수 있는지 확인하기 위해, 우리는 연구를 다시 수행했지만, 이번에는 성인들에게 제스처에 관해 아무런 지시도 하지 않았다."],
+  ["We found the same patterns: people remembered items on which they had gestured spontaneously better than items on which they had not gestured.","우리는 동일한 양상을 발견했다. 즉, 사람들은 자발적으로 제스처를 했던 항목들을 제스처를 하지 않았던 항목들보다 더 잘 기억했다."],
+  ["Producing gesture along with speech makes the information encoded in that speech memorable.","말과 함께 제스처를 하는 것은 그 말 속에 부호화된 정보를 기억할 만하게 만든다."]
+ ],
+ v:[["odd","기이한"],["bend","구부리다"],["particularly","특히"],["instruction","지시"],["spontaneously","자발적으로"],["encode","부호화하다"]],
+ g:[[1,"사역동사 have + 목적어 + 원형부정사(watch). 현재분사구 performing …이 people 등을 수식."],[3,"who were told to gesture: 수동태 + to부정사. 비교 구문 more than …"],[5,"전치사 + 관계대명사: items on which they had gestured. 과거완료(비교 시점보다 앞선 행동)."]],
+ q:[{kind:"문장 삽입",pos:true,q:"글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳은?",b:{ins:{given:3,after:[0,1,2,4,5]}},
+  choices:["①","②","③","④","⑤"],a:2,
+  exp:"주어진 문장은 ‘제스처를 하라고 지시받은 집단’의 결과이다. 실험 설명과 기억 테스트(We then tested …) 다음인 ③에 오고, 이어서 ‘지시 없이’ 한 후속 실험(To see if …)으로 자연스럽게 연결된다."}]},
+
+{id:"m-11",no:11,exam:"6월 39번",kind:"문장 삽입",sub:"삼림 파괴가 탄소 조절과 지구 온난화에 미치는 영향",
+ s:[
+  ["Approximately 15-20% of global greenhouse gas emissions are caused by degradation and deforestation.","전 세계 온실가스 배출의 약 15-20%는 환경 악화와 삼림 벌채로 인해 비롯된다."],
+  ["Trees play a huge role in the carbon cycle.","나무들은 탄소 순환에서 막대한 역할을 한다."],
+  ["They convert the CO2 in the air to oxygen through the process of photosynthesis, and consequently, they are viewed as a natural regulator of carbon dioxide.","그것들은 광합성 과정을 통해 공기 중의 이산화탄소를 산소로 전환하며, 그 결과, 이산화탄소의 자연적인 조절자로 여겨진다."],
+  ["The existence of a larger amount of trees will no doubt lead to the reduced presence of carbon dioxide in the atmosphere and the increased existence of oxygen.","더 많은 양의 나무의 존재는 의심할 여지 없이 대기 중 이산화탄소의 감소와 산소의 증가로 이어질 것이다."],
+  ["Unfortunately, deforestation is preventing this process from being fully accomplished.","불행하게도, 삼림 벌채는 이러한 과정이 온전히 이루어지는 것을 막고 있다.","주어진 문장"],
+  ["And with half of the Earth’s forests gone, the amount of carbon dioxide is progressively rising.","그리고 지구 삼림의 절반이 사라지면서, 이산화탄소의 양은 점점 증가하고 있다."],
+  ["With more carbon dioxide in the atmosphere, more of the sun’s radiation is being reflected back to Earth instead of being released into space, and this is causing the planet’s average temperature to rise.","대기 중 이산화탄소가 더 많아지면서, 더 많은 태양 복사 (에너지)가 우주로 방출되는 대신 지구로 다시 반사되고 있으며, 이는 지구의 평균 기온이 상승하도록 유발하고 있다."],
+  ["Accordingly, deforestation is a major issue when it comes to global warming.","따라서, 삼림 벌채는 지구 온난화와 관련하여 주요한 문제이다."]
+ ],
+ v:[["deforestation","삼림 벌채"],["emission","배출"],["convert","전환하다"],["oxygen","산소"],["accordingly","따라서"],["progressively","점진적으로"],["degradation","(환경) 악화"],["photosynthesis","광합성"],["radiation","복사 (에너지)"]],
+ g:[[2,"be viewed as ~: ~로 여겨지다 (view A as B의 수동태)."],[4,"prevent A from -ing: A가 ~하는 것을 막다. 여기서는 수동 being fully accomplished. this process는 앞 문장의 나무가 CO2를 줄이는 과정."],[5,"with + 명사 + 과거분사(with half of the forests gone): 부대상황."]],
+ q:[{kind:"문장 삽입",pos:true,q:"글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳은?",b:{ins:{given:4,after:[1,2,3,5,6]}},
+  choices:["①","②","③","④","⑤"],a:2,
+  exp:"나무가 CO2를 줄이고 산소를 늘린다는 ‘과정’을 설명한 뒤, Unfortunately로 삼림 벌채가 그 과정을 방해한다고 전환한다. 이어지는 ‘삼림의 절반이 사라지면서 CO2 증가’와 자연스럽게 연결되는 곳이 ③."}]},
+
+{id:"m-12",no:12,exam:"6월 40번",kind:"요약문",sub:"무의식적인 감정적 의사결정과 그에 따르는 이성적 정당화",
+ s:[
+  ["We go out in the world every day and make decisions about what is safe or not and what is appropriate or not.","우리는 매일 세상으로 나가 무엇이 안전한지 아닌지 그리고 무엇이 적절한지 아닌지에 대한 결정을 내린다."],
+  ["It is what psychologist Joseph LeDoux has suggested is an unconscious “danger detector” that determines whether or not something or someone is safe before we can even begin to consciously make a determination.","우리가 의식적으로 판단하기를 시작하기도 전에 어떤 것이나 사람이 안전한지 아닌지를 판단하는 것은 바로 심리학자 Joseph LeDoux가 제안한 무의식적인 ‘위험 감지기’라는 것이다."],
+  ["When the object, animal, or person is assessed to be dangerous, a fear response, which has been called “fight or flight,” occurs.","사물, 동물, 또는 사람이 위험하다고 평가될 때, 공포 반응이 발생하는데, 그것은 ‘싸움 또는 도피’라고 불러 왔다."],
+  ["On a conscious level we may correct a mistake in this “danger detector” when we notice it, but often, of course, we simply begin to generate reasons for why it was accurate in the first place.","의식적 수준에서는 우리가 이 ‘위험 감지기’의 오류를 발견했을 때 그것을 수정할 수 있을지 모르지만, 종종, 당연히, 우리는 그것이 애초에 왜 정확했는지에 대한 이유를 그저 만들어내기 시작한다."],
+  ["We are generally convinced that our decisions are “rational,” but in reality, most human decisions are made emotionally, and then we collect or generate the facts to justify these decisions.","우리는 일반적으로 자신의 결정이 ‘이성적’이라고 확신하지만, 실제로는, 대부분의 인간 결정은 감정적으로 이루어지고, 그 후에 이러한 결정을 정당화할 사실을 모으거나 만들어낸다."],
+  ["When we see something or someone who “feels” dangerous, we have already launched into action internally before we have even started “thinking.”","위험하다고 ‘느껴지는’ 어떤 것이나 사람을 볼 때, 우리는 심지어 ‘생각’을 시작하기도 전에 이미 내면적으로 행동을 시작해 버린다."],
+  ["We perform an automatic assessment of danger before conscious thinking, making emotion-based decisions first and then generating reasons to support them.","우리는 의식적인 사고에 앞서 위험에 대한 자동적인 평가를 수행하는데, 감정에 기반한 결정들을 먼저 내리고 나서 그것들을 뒷받침할 이유들을 만들어낸다.","요약문"]
+ ],
+ v:[["rational","이성적인"],["launch","시작하다"],["assess","평가하다"],["accurate","정확한"]],
+ g:[[2,"계속적 용법 , which has been called …: 현재완료 수동태. When … is assessed to be dangerous: 수동태."],[4,"be convinced that ~: ~라고 확신하다. to justify: 목적/수식의 to부정사."],[6,"요약문(시험에서는 빈칸 (A), (B)): (A) automatic, (B) support."]],
+ q:[{kind:"요약문",q:"다음 글의 내용을 한 문장으로 요약하고자 한다. 빈칸 (A), (B)에 들어갈 말로 가장 적절한 것은?",
+  b:{excl:[6],append:"We perform a(n) <b>(A)</b> assessment of danger before conscious thinking, making emotion-based decisions first and then generating reasons to <b>(B)</b> them."},
+  choices:["(A) automatic … (B) support","(A) purposeful … (B) challenge","(A) analytical … (B) confirm","(A) detailed … (B) explain","(A) immediate … (B) alter"],a:0,
+  exp:"위험 감지기는 의식 이전에 ‘무의식적·자동적’으로 작동하고(automatic), 이후에 결정을 정당화할 이유를 만든다 → 결정을 ‘뒷받침’(support)."}]},
+
+{id:"m-13",no:13,exam:"6월 41-42번",kind:"장문 독해",sub:"스포츠 관중 수와 수익을 견인하는 불확실성의 힘",
+ s:[
+  ["Commercial businesses aim for predictability and certainty, especially when it comes to product quality.","상업적 기업은, 특히 제품 품질에 있어, 예측 가능성과 확실성을 추구한다."],
+  ["But predictability and certainty are not always valued in the sporting world, especially when it comes to the delivery of professional sport competitions.","그러나 예측 가능성과 확실성이 스포츠계, 특히 프로 스포츠 경기 운영에서는 항상 가치 있게 여겨지지는 않는다."],
+  ["From a spectator’s perspective the sport experience is better experienced when unpredictable.","관중의 관점에서 스포츠 경험은 예측 불가능할 때 더 잘 경험된다."],
+  ["Sport events actually depend on that unpredictability in order to attract people to the game.","실제로 스포츠 경기는 사람들을 경기로 끌어들이기 위해 그 예측 불가능성에 의존한다."],
+  ["When the results of games cannot be predicted, attendances at sporting contests are likely to be higher, as are the profits of leagues.","경기 결과가 예측될 수 없을 때, 스포츠 경기의 관중은 더 늘어날 가능성이 있으며, 리그의 수익도 그렇다."],
+  ["However, the presence of predictability also leads to significant variability in the quality of sporting performances.","그러나, 예측 가능성의 존재(→ 결여)는 또한 스포츠 수행(실적)의 질에 있어 상당한 변동성으로 이어진다."],
+  ["Many factors can contribute to the variability of the sport product, including the weather, player injuries, the venue, the quality of the opponents, the closeness of the scores and even the size of the crowd.","날씨, 선수 부상, 경기장, 상대 팀의 실력, 점수의 근접성과 심지어 관중의 규모를 포함하여, 많은 요인들이 스포츠 상품의 변동성의 원인이 될 수 있다."],
+  ["A cricket match can be exhilarating, boring or even frustrating, but fans still have to pay the same price.","크리켓 경기는 짜릿할 수도, 지루할 수도, 심지어 좌절감을 줄 수도 있지만, 팬들은 여전히 동일한 가격을 지불해야 한다."],
+  ["Sport marketers may attempt to overcome this by ‘improving’ the product in systematic ways, such as including a star player, offering premium seating or providing other forms of entertainment and inviting facilities.","스포츠 마케팅 담당자들은 스타 선수 영입, 프리미엄 좌석 제공 또는 다른 형태의 오락거리와 편의 시설 제공과 같이, 체계적인 방식으로 (스포츠) 상품을 ‘개선’함으로써 이를 극복하려 시도할지 모른다."],
+  ["The uncertain nature of sport contests is just one element of a total experience, although it is an important element for financial success.","스포츠 경기의 불확실한 속성은 전체 경험의 단지 한 요소일 뿐이지만, 재정적 성공을 위한 중요한 요소이다."]
+ ],
+ v:[["perspective","관점"],["facility","시설",["facilities"]],["predictability","예측 가능성",["unpredictable","unpredictability"]],["certainty","확실성"],["attendance","관중 수, 참석"],["variability","가변성, 변동성"],["opponent","(경기의) 상대"],["systematic","체계적인"],["spectator","관중"],["venue","(스포츠 경기 등의) 장소"],["exhilarating","짜릿한"]],
+ g:[[4,"as are the profits of leagues: as + 동사 + 주어(도치) = ~도 마찬가지로. 조건 When … cannot be predicted: 수동태."],[5,"시험 (c) presence는 문맥상 부적절 → absence(결여). 예측 가능성이 ‘없으면’ 품질의 변동성이 커진다는 흐름."],[8,"overcome this by -ing: ~함으로써 극복하다. such as 이하는 예시 나열."]],
+ q:[
+  {kind:"제목",q:"윗글의 제목으로 가장 적절한 것은? [41번]",
+   b:{rep:[["valued","(a) <u>valued</u>"],["attract","(b) <u>attract</u>"],["presence","(c) <u>presence</u>"],["overcome","(d) <u>overcome</u>"],["financial","(e) <u>financial</u>"]]},
+   choices:["Grab Unpredictable Opportunities in Commercial Businesses","Do Sports Fans Really Want the Uncertainty of an Outcome?","Unpredictability in Sports: A Blessing and a Challenge","When Luck Takes the Field, Predictions Fall Apart","How Athletes Can Effectively Manage Uncertainty"],a:2,
+   exp:"불확실성은 관중과 수익을 늘리는 장점이지만, 품질 변동성이라는 도전 과제도 낳는다. 두 면을 모두 담은 것은 ‘축복이자 도전’."},
+  {kind:"어휘",pos:true,q:"밑줄 친 (a) ∼ (e) 중에서 문맥상 낱말의 쓰임이 적절하지 않은 것은? [42번]",
+   b:{rep:[["valued","(a) <u>valued</u>"],["attract","(b) <u>attract</u>"],["presence","(c) <u>presence</u>"],["overcome","(d) <u>overcome</u>"],["financial","(e) <u>financial</u>"]]},
+   choices:["(a)","(b)","(c)","(d)","(e)"],a:2,
+   exp:"(c) presence → absence. 예측 가능성이 ‘결여’될 때 스포츠 품질의 변동성이 커진다는 뜻이어야 한다."}
+ ]}
+];
+</script>
+<script>const LEC = {
+"m-1":{
+ v:[["classical","고전적인"],["ideal","이상"],["concept","개념"],["competing","경쟁하는"],["fit to reality","현실과의 부합"],["basis","근거"],["figure out","알아내다"]],
+ g:[
+  [0,"사역동사 let + 목적어 + 동사원형: let the best and brightest facts form the basis of our beliefs = ~가 …하게 하다. form 앞에 to를 쓰지 않는다. we encounter ~, we evaluate ~, and then let ~ : 세 동사의 병렬. (사역동사 3종: make 시키다 / have 하게 하다 / let 허락하다)"],
+  [3,"not A but B (상관접속사): not because they contain ideas, but because they contain stories = A가 아니라 B다 → 무게는 B에 있다. A와 B는 같은 형태(because절). 밑줄 문제의 열쇠는 B(= stories about ideas). 같은 짝: not only A but also B, either A or B, neither A nor B."],
+  [4,"help + 목적어 + 동사원형: statements to help us figure out [what we should believe]. figure out 앞의 to는 생략된 것(help us to figure out도 가능). what we should believe = figure out의 목적어인 명사절, 의문사 + 주어 + 동사 어순(should we believe ✕)."],
+  [5,"관계대명사 what / 간접의문문: we already know [what we believe]. what절이 know의 목적어."],
+  [6,"관계대명사 what(선행사 포함): [What we seek] are statements ~. what = ~하는 것(the thing which), 여기서는 주어 역할. 보어가 복수(statements)라 동사도 are. / to부정사의 형용사적 용법: statements to justify those beliefs = 그 믿음을 정당화할 진술(명사를 수식)."],
+  [8,"by + 동명사 / 비교급 + than: By treating language with greater respect = ~함으로써(수단·방법). achieve more than simple self-defense = 단순한 자기방어 ‘이상’. 글쓴이의 결론: 언어는 방어 도구 이상이 될 수 있다."]
+ ],
+ exp:"정답 ⑤ gather words to back up our beliefs\n근거: 밑줄 뒤 세 문장 — Usually we already know what we believe / What we seek are statements to justify those beliefs\njustify those beliefs = back up our beliefs\nshop for words = 사실 찾기 ✕ / 내 믿음을 받쳐 줄 말 담기 ○\n\n[오답 분석]\n① 명확한 단어 선택 → 의사소통의 명료성 이야기가 아님. words에 낚임\n② 남의 생각 바꾸기 → 대상은 타인 ✕, 자기 믿음의 방어 ○ (self-defense)\n③ 사실 증거 검토 → 반대편! 과학자의 방식 (But 앞쪽)\n④ 열린 마음으로 평가 → 역시 이상(a market for ideas) 쪽\n③④는 지문에 나온 표현이지만 모두 But in practice 앞쪽 = 밑줄과 반대",
+ lec:{
+  warm:["나는 왜 그렇게 믿는가?","믿음이 먼저인가? 근거가 먼저인가?","보통의 순서: 근거 수집 → 판단 → 믿음","실제의 순서: 이미 믿음 → 근거 찾기 → ‘거 봐, 맞잖아’","21번 지문의 주장 → 우리는 사실이 아니라 ‘변명거리’를 쇼핑한다!"],
+  bg:[["배경 ① 두 개의 시장","a market for IDEAS = 생각이 경쟁하는 시장: 경쟁하는 생각 만남 → 현실과 맞는지 평가 → 사실이 믿음의 근거","a market for JUSTIFICATIONS = 변명이 거래되는 시장: 이미 믿음 있음 → 그 믿음을 정당화할 말 찾기","글의 전환점: But in practice ← 여기서 이상 → 현실"],["배경 ② 과학자 vs. 변호사","과학자의 방식: 결론이 없다 → 증거를 보고 결론을 만든다","변호사의 방식: 결론이 정해져 있다 → 그 결론을 변호할 말을 모은다","배심원 앞의 변호사 = 진실 탐구 ✕ / 의뢰인 방어 ○","심리학 용어로는 확증편향 (내 생각에 맞는 정보만 눈에 들어옴)"]],
+  strat:["문제 전략 · 밑줄 의미 추론 [3점]","묻는 것: 사전적 뜻 ✕ / 문맥상 의미 ○","근거 위치: 밑줄 바로 앞·뒤 1~2문장","대비 구조 글: 밑줄이 A쪽인지 B쪽인지부터 확인","소거법: 반대편(이상·과학자) 내용을 담은 선택지 = 먼저 삭제"],
+  flow:[["이상","a market for ideas → evaluate → facts = the basis of beliefs","경쟁하는 생각을 만나 현실과의 부합을 평가 → 사실이 믿음의 근거 (과학자의 방식)"],["전환","But in practice → a market for justifications","그러나 현실에서 우리는 대개 ‘정당화의 시장’에 있다"],["밑줄","we shop for words → not ideas but stories about ideas","말을 쇼핑한다 = 생각이 아니라 생각에 관한 ‘이야기’를 담는다"],["이유","we already know what we believe → seek statements to justify","이미 믿는 바가 있고, 그 믿음을 정당화할 진술을 찾는다 → 정답 ⑤"],["비유","the scientist’s way ↔ the lawyer’s way","증거로 결론을 만드는 쪽 ↔ 정해진 결론을 변호하는 쪽"],["결론","treat language with greater respect → more than self-defense","언어를 더 존중해 쓰면 단순한 자기 방어 이상을 이룰 수 있다"]]
+ }},
+"m-2":{
+ v:[["occur","일어나다"],["scroll","스크롤하다"],["notice","알아차리다"],["pleasure","쾌락"],["challenge","난제"],["the laws of physics","물리학 법칙"],["rebalance","재균형을 이루다"]],
+ g:[
+  [0,"관계대명사 what / 접속사 + 분사: look at [what is occurring in your brain]. what = ~하는 것(선행사 포함), look at의 목적어. [when scrolling on social media] = when you are scrolling ~: 접속사 + 분사(주어가 같을 때 「주어 + be동사」 생략). a quick dopamine activity = 앞의 what절을 다시 설명하는 동격."],
+  [2,"목적격 관계대명사의 생략: The challenge [(that) this creates] is ~. creates의 목적어 자리가 비어 있다 → 목적격. 문장의 주어는 The challenge, 동사는 is(사이의 절은 수식어). (비교: you notice [(that) you feel really good]의 that은 접속사)"],
+  [3,"과거분사구 / 계속적 용법의 which: something {called ‘homeostasis’} = which is called ~(수동). , [which simply means balance] = 콤마 + which, 앞의 명사를 추가 설명(그런데 그것은). 계속적 용법에서는 that ✕, 생략 ✕."],
+  [4,"With + 목적어 + 부사구(부대상황): {With this in mind}, the brain then thinks ~. with + 목적어 + 보어(부사구·형용사·분사) = ~한 상태로. with this in mind = 이것을 염두에 둔 채로. 같은 형태: with his eyes closed, with the door open."],
+  [5,"in order to(목적) / have to: {In order to achieve homeostasis}, the dopamine has to drop. in order to + 동사원형 = ~하기 위해서(= so as to). 이 문장에는 in order to가 두 번 나온다(achieve / rebalance). has to = ~해야 한다(필연·의무)."],
+  [5,"분사구문(결과) / make + 목적어 + 동사원형: ~ below your baseline level, {making you feel even worse}. , -ing = and + 동사 → ‘그래서 ~하게 된다’(연속·결과). make + 목적어 + 동사원형(사역동사). even worse than before: even은 비교급 강조(even, much, far, still, a lot)."]
+ ],
+ exp:"정답 ① The Dopamine Seesaw\n글의 뼈대: 급상승 → 항상성 → 기준선 아래로 급하강\nseesaw = 올라간 만큼 내려가는 시소 → 글 전체를 덮는 비유\nHow Scrolling Makes You Feel = 마지막 문장 feel even worse와 직결\n제목이 갖춰야 할 것: 소재(scrolling·dopamine) + 핵심 원리(오르내림)\n\n[오답 분석]\n② 소셜 미디어 탓 그만 → 글은 오히려 그 부작용의 기제를 설명. 방향 반대\n③ 균형 회복 ‘팁’ → 해결책·조언 ✕. 설명글이지 처방글이 아님\n④ 행동의 동기 → 도파민의 동기 기능은 언급 없음. 상승·하강이 주제\n⑤ 스크롤할수록 상호작용 감소 → 지문에 없는 내용\n자주 나오는 함정: ③처럼 ‘Tips / How to’를 붙여 처방글처럼 꾸민 선택지",
+ lec:{
+  warm:["스크롤을 끝내고 나면 기분이 어떤가?","앱 열기 → 기분 좋음 → 30분 뒤 → ???","보통의 예상: 재미있었으니까 → 기분도 좋아야 한다","실제: 시작하기 전보다 더 기분이 나쁘다","24번 지문의 설명 → 올라간 만큼 반드시 내려온다!"],
+  bg:[["배경 ① 도파민 (dopamine)","도파민 = 쾌락·보상과 관련된 뇌의 신호 물질. 평소 상태 = baseline(기준선)","스크롤·알림·좋아요 → 기준선 위로 급상승 → ‘기분 좋다’","핵심: 빠르게 오를수록 → 빠르게 떨어진다"],["배경 ② 항상성 (homeostasis)","homeostasis = 균형(balance)을 유지하려는 몸의 성질. 체온·혈당처럼 기분도 원래 자리로 되돌리려 한다","시소 비유: 한쪽이 올라가면 → 반대쪽이 내려간다","물리 법칙 인용: what goes up, must come down → 기준선 위로 오른 만큼, 기준선 아래로 떨어진다"]],
+  strat:["문제 전략 · 제목 추론","제목 = 주제 + 압축 + 표현력 (비유·대구·콜론 자주 등장)","확인 1. 글 전체를 덮는가? (한 문장만 덮으면 ✕)","확인 2. 글의 방향과 같은가? (반대 주장 ✕)","함정 유형: 해결책 제시형 / 지엽적 소재형 / 언급 없는 내용"],
+  flow:[["관찰","open the apps → dopamine levels increase → pleasure","앱을 열면 도파민 수치가 믿을 수 없이 빠르게 올라가고 쾌락을 느낀다"],["원리","the laws of physics: what goes up, must come down","올라간 것은 반드시 내려온다 — 이것이 만들어지는 난제"],["이유","the brain seeks homeostasis = balance","뇌와 몸은 늘 항상성, 곧 균형을 추구한다"],["반작용","dopamine drops an equal amount below your baseline","균형을 되찾기 위해 기준선 아래로 같은 양만큼 빠르게 떨어진다"],["결과","feel even worse than before you started scrolling","스크롤을 시작하기 전보다 오히려 더 기분이 나빠진다"],["제목","The Dopamine Seesaw: How Scrolling Makes You Feel","올라간 만큼 내려가는 시소 = 글 전체를 덮는 비유 (정답 ①)"]]
+ }},
+"m-3":{
+ v:[["landscape","환경·판도"],["convey","전달하다"],["complexity","복잡성"],["triumph","승리"],["empathize","공감하다"],["the human condition","인간의 조건"]],
+ g:[
+  [1,"분사구문 (connecting): , -ing = and + 동사 (= and it connects us with ~). 이 절의 정동사는 이미 transcends → 뒤는 준동사 자리. 바로 이 판단이 ④번을 가르는 기준이 된다."],
+  [2,"전치사 Despite vs 접속사 Although: Despite / In spite of + 명사(구) = ~에도 불구하고, Although / Even though + 주어 + 동사 = 비록 ~일지라도. 뒤에 명사가 오면 전치사, 절이 오면 접속사. (Because of + 명사 / Because + 절)"],
+  [3,"병렬 구조: its ability to capture and (to) convey the complexities. and로 이어진 두 to부정사, 반복되는 to는 생략 가능. 둘 다 ability를 수식하는 형용사적 용법. 지문 마지막 문장도 병렬: to see ~, to empathize ~, and to gain ~."],
+  [4,"동사 자리 — 정답: Through the written word, authors have the unique ability ~. 절에는 정동사가 반드시 하나 있어야 한다. 주어 authors 뒤에 동사가 없으면 문장이 끝나지 않는다. having으로 쓰려면 앞에 접속사나 다른 정동사가 있어야 한다. (비교: Authors {having the ability} explore ~ 이때는 having 가능)"],
+  [5,"see + 목적어 + 과거분사: see ourselves {reflected in the pages}. 목적어가 하는 동작(능동) → 동사원형 또는 현재분사 / 당하는 동작(수동) → 과거분사. ourselves는 ‘비춰지는’ 쪽 → reflected."],
+  [5,"allow + 목적어 + to부정사: allows us to see ~, to empathize ~, and to gain ~. 사역동사 make/let/have와 달리 to가 필요. 세 개의 to부정사가 and로 이어진 병렬. characters {different from ourselves} → 형용사구의 명사 후치 수식."]
+ ],
+ exp:"정답 ④ having → have\nThrough the written word, authors __ the unique ability ~\n주어 authors / 동사 ??? → 이 절에는 정동사가 없다! having은 준동사 → 문장이 성립하지 않음 → have로 고쳐야 한다\n앞에 접속사도, 다른 동사도 없다는 점이 결정적 단서\n\n[나머지 보기]\n① connecting: 분사구문(and it connects) — 정동사 transcends가 이미 있으므로 준동사가 맞다\n② Despite: 뒤에 명사구가 오므로 전치사가 맞다\n③ convey: to capture and (to) convey 병렬\n⑤ reflected: see + 목적어 + 과거분사(수동)",
+ lec:{
+  warm:["어법 문제는 ‘해석’으로 풀지 않는다","해석이 되니까 맞는 것 같다 → 가장 흔한 함정","어법 문제 = 구조 문제 → 문장의 뼈대부터 본다","확인 순서: 주어 찾기 → 동사 찾기 → 나머지는 수식어","29번의 정답도 ‘동사가 사라진 문장’에서 나온다"],
+  bg:[["배경 ① 어법 5대 출제 포인트","1. 동사 자리 vs 준동사 자리 (한 절에 정동사는 하나!)","2. 병렬 구조 (and / or 앞뒤 형태 일치)","3. 전치사 vs 접속사 (Despite ↔ Although)","4. 목적격 보어 (능동 → 원형·현재분사 / 수동 → 과거분사)","5. 수 일치 · 대명사 · 관계사 (선행사와 짝 맞추기)"],["배경 ② 동사 자리인가, 준동사 자리인가","한 절(clause)에 정동사(주어의 동작을 받는 동사)는 반드시 하나","이미 동사가 있다 → 그 뒤에 오는 동사는 준동사 형태로 (준동사 = to부정사 / 동명사 / 분사)","동사가 아직 없다 → 그 자리는 반드시 정동사!","판별법: 주어를 찾고, 그 주어의 동사가 있는지 세어 본다"]],
+  strat:["문제 전략 · 어법 [3점]","① 밑줄만 보지 말고 → 그 밑줄이 속한 절 전체를 본다","② -ing / p.p.에 밑줄 → ‘여기가 동사 자리인가?’부터 확인","③ and 근처 밑줄 → 무엇과 무엇이 이어지는지 짝을 찾는다","④ Despite / Although 밑줄 → 뒤가 명사인가 절인가 확인","⑤ 사역·지각동사 뒤 밑줄 → 목적어와 능동인가 수동인가 확인"],
+  flow:[["주제","literature = a testament to the enduring power of creativity","문학은 인간의 창의성 및 표현의 지속적인 힘에 대한 증거다"],["초월","it transcends time and space → connects us across centuries","시간과 공간을 초월해 각계각층 사람들의 생각 및 감정과 우리를 연결해 준다"],["대조","Despite new technologies → literature has retained its relevance","새 기술과 미디어 환경 변화에도 문학은 적절성과 중요성을 유지해 왔다"],["이유","its ability to capture and convey the complexities of experience","인간 경험의 복잡성을 포착하고 전달하는 능력이 그 지속적인 힘의 이유"],["방법","authors have the ability to explore emotion, relationships, spirit","작가들은 인간 감정의 깊이, 관계의 미묘한 차이, 인간 정신의 도전과 승리를 탐구한다"],["효과","see ourselves reflected → empathize → understand","우리 자신이 투영되는 것을 보고, 다른 인물에게 공감하며, 인간의 조건을 더 깊이 이해"]]
+ }},
+"m-4":{
+ v:[["interconnected","서로 연결된"],["ever-changing","끊임없이 변하는"],["neural network","신경망"],["of note","주목할 만한"],["immediate surroundings","직접적인 주변 환경"],["mere","단순한"]],
+ g:[
+  [0,"not just A but B / even if: not just[only] A but (also) B = A일 뿐 아니라 B이다 → 무게는 B. 글의 초점은 interconnected가 아니라 ever-changing. [even if we can’t sense it] = 비록 ~일지라도(양보). even if(가정) / even though(사실) 구분에 주의."],
+  [1,"진행형 / 접속사 while: [While you’re reading this], you’re changing. 진행형 = 지금 이 순간 계속 일어나는 중 → 글 전체의 핵심 시제."],
+  [2,"the neural networks are imperceptibly changing [as you perceive each word]: while / as = ~하는 동안, ~함에 따라(동시에 일어나는 일)."],
+  [3,"선행사와 떨어진 주격 관계대명사절: events are taking place outside your surroundings [that will change your life]. that절이 수식하는 것은 surroundings가 아니라 events(의미로 판단: 삶을 바꾸는 것은 ‘사건’). [though you won’t realize it yet] = 비록 ~일지라도(양보)."],
+  [4,"동격(콤마로 묶는 설명): Heraclitus, the ancient Greek philosopher, rightly pointed out. 명사 , 명사구 , = 앞의 명사를 다시 설명. 주어는 Heraclitus, 동사는 pointed out. 사이는 설명일 뿐이다."],
+  [5,"접속사 that / mere: Cratylus added [that we are not mere passive observers]. 접속사 that + 완전한 문장 = ~라는 것(added의 목적어). mere = 단순한(명사 앞에만 쓰는 형용사), not mere A = A 이상이다. 같은 동격 구조: Cratylus, a student of Heraclitus, added that ~."],
+  [8,"even 강조 / add up: Even microscopic changes add up over time. even + 명사 = ~조차도(비교급 강조 even worse와 구분). add up = 쌓이다, 누적되다. Nothing is static. = 정적인 것은 아무것도 없다(부정 주어)."]
+ ],
+ exp:"정답 ② passive observers\n빈칸 바로 뒤 문장이 근거: When you step in a river, you change it.\n발을 담그면 ‘내가’ 강을 바꾼다 → 나는 구경꾼이 아니다\nnot mere passive observers = 단순한 수동적 관찰자가 아니다\n스승 Heraclitus(변화를 관찰) → 제자 Cratylus(변화에 참여)\n\n[오답 분석]\n① 효과적인 지도자 → 리더십 이야기는 전혀 없음\n③ 정확한 예측자 → 오히려 ‘아직 깨닫지 못한다’고 했다. 반대\n④ 예민한 몽상가 → 감수성·꿈과 무관\n⑤ 영향력 있는 철학자 → 철학자는 인용된 두 사람. 우리가 아니다\n함정: ⑤는 Heraclitus·Cratylus라는 단어에 끌려 고르기 쉽다",
+ lec:{
+  warm:["지금 이 순간에도 변하고 있는 것","이 문장을 읽는 동안 → 당신은 이미 변했다","나이 · 뇌의 신경망 · 교실 밖에서 벌어지는 사건들","보통의 생각: 세상은 그대로 있고 → 나는 그것을 ‘본다’","31번 지문의 주장 → 보는 순간 이미 바꾸고 있다!"],
+  bg:[["배경 ① 헤라클레이토스의 강","Heraclitus(고대 그리스 철학자) = ‘만물은 흐른다’. 같은 강물에 두 번 발을 담글 수 없다","이유 1. 강이 그대로가 아니다(물이 계속 흘러감) / 이유 2. 나도 그대로가 아니다","→ 변하는 것은 세상 + 나, 둘 다"],["배경 ② 제자 크라틸로스의 한 걸음","Cratylus = Heraclitus의 제자 → 스승의 말에 한 가지를 더함","스승: 강도 변하고 나도 변한다(변화를 ‘관찰’) / 제자: 내가 발을 담그는 순간 → 내가 강을 변화시킨다","관찰자(observer) → 참여자(participant). 빈칸은 바로 이 전환이 들어갈 자리다."]],
+  strat:["문제 전략 · 빈칸 추론","빈칸 문장 = 글의 요지를 압축한 문장인 경우가 많다","근거 위치: 빈칸 바로 뒤 문장이 결정적일 때가 많다","반복 키워드 확인: 이 글은 change / changing이 계속 나온다","대입 후 확인: 넣었을 때 앞뒤 논리가 이어지는가?","not mere ___처럼 부정어가 있으면 → 반대 개념을 넣어야 한다"],
+  flow:[["전제","our world = interconnected + ever-changing","세계는 연결되어 있을 뿐 아니라 끊임없이 변화한다(감지하지 못해도)"],["예시 1","while reading → aging, neural networks changing","읽는 동안에도 나이 들고 뇌의 신경망이 감지할 수 없게 변하고 있다"],["예시 2","events outside your surroundings → will change your life","주변 환경 밖의 사건들이 미래의 삶을 바꾸지만 아직 깨닫지 못한다"],["인용","Heraclitus: no man steps in the same river twice","강도 같지 않고 나도 같지 않다 — 변화를 ‘관찰’하는 단계"],["확장","Cratylus: we are not mere passive observers","제자는 한 걸음 더 나아간다 — 우리는 단순한 수동적 관찰자가 아니다 (정답 ②)"],["결론","you step in → you change it / nothing is static","발을 담그면 내가 강을 바꾼다. 정적인 것은 없고 작은 변화도 쌓인다"]]
+ }},
+"m-5":{
+ v:[["spot","장소"],["recall","기억해 내다"],["in the background","배경에서"],["consciously","의식적으로"]],
+ g:[
+  [1,"명령문의 부정: Don’t (do that). = 그러지 마라 → 동사가 생략된 부정 명령문."],
+  [2,"help + 동사원형: that helps create variety. help + (목적어) + 동사원형/to부정사 = ~하는 것을 돕다(to를 써도 되고 안 써도 되는 준사역동사). / 관계대명사 what: reinforce [what you are learning]. what = ~하는 것(선행사 포함), reinforce의 목적어."],
+  [3,"rather than / that 생략: they did school work in different places rather than in some favorite nook. A rather than B = B라기보다는 A(A·B는 같은 형태). told us [(that) they did ~]: tell + 간접목적어 + that절에서 that 생략 가능."],
+  [4,"be more likely to / 명사절 that: have found [that ~ they are more likely to recall]. be likely to + 동사원형 = ~할 가능성이 있다(more likely to = 가능성이 더 높다). [if learners simply study in at least two different places]: that절 안에 조건절 if가 들어간 구조."],
+  [6,"과거분사구: the same amount of time {divided between two locations} = 두 장소에 나뉜 같은 양의 시간."],
+  [7,"분사구문의 생략 / as ~ as possible: [When asked to recall ~] = When they were asked ~. 접속사 + 과거분사 → 「주어 + be동사」 생략. as many words as possible = 가능한 한 많은 단어를. / 과거완료 / those who: those [who had moved around] did far better. those who ~ = ~한 사람들. had moved = 과거완료(did보다 앞선 일). far better: far는 비교급 강조(훨씬)."],
+  [8,"관계대명사 what: outside of [what we are consciously thinking]. 이 what절은 전치사 of의 목적어."]
+ ],
+ exp:"정답 ① recall the material\n빈칸 뒤 실험이 그대로 근거: asked to recall as many words on the list as possible / those who had moved around did far better\n옮겨 다닌 집단이 ‘단어 목록’을 더 잘 기억했다 → 학습 자료의 회상\n마지막 문장도 뒷받침: Variety creates rich association\n\n[오답 분석]\n② 학습 습관을 악화시킨다 → 글의 방향과 정반대\n③ 불안과 우울 → 정서 이야기는 전혀 없음\n④ 다양한 인맥 형성 → variety를 ‘사람의 다양성’으로 오해한 선택지\n⑤ 장소의 특징을 기억한다 → 기억 대상이 뒤바뀜. 장소가 아니라 학습 자료\n최다 오답은 ⑤. 장소는 ‘단서’일 뿐, 기억해야 할 ‘내용’이 아니다",
+ lec:{
+  warm:["늘 같은 자리에서 공부하는가?","내 ‘고정 자리’: 독서실 그 칸 · 방 책상 · 카페 구석","보통의 믿음: 익숙한 자리 → 집중이 잘 된다","32번 지문의 조언: Don’t. → 자리를 옮겨라!","왜? → 장소가 바뀌면 기억의 ‘단서’가 늘어난다"],
+  bg:[["배경 ① 장소는 기억의 단서가 된다","공부할 때 뇌는 내용만 저장하지 않는다. 그때의 소리 · 냄새 · 벽 색깔 · 앉은 자리까지 함께 묶인다","한 장소에서만 공부 → 단서가 하나 → 꺼낼 통로가 하나","여러 장소에서 공부 → 단서가 여럿 → 꺼낼 통로가 여럿. 이것이 지문의 rich association(풍부한 연상)"],["배경 ② 실험 문장 읽는 법","① 두 집단을 찾는다: 같은 방 2회 ↔ 두 장소에 나눠서","② 같게 맞춘 조건: the same amount of time(공부 시간)","③ 다르게 한 것: 장소의 개수 ← 이것이 진짜 변수","④ 결과: did far better(훨씬 더 잘했다). 실험 문장은 ‘무엇을 같게 두고 무엇만 바꿨는가’가 핵심"]],
+  strat:["문제 전략 · 빈칸 추론","빈칸이 실험 ‘결론’ 자리 → 근거는 뒤따르는 실험 결과에 있다","이 글의 결정적 문장: recall as many words ~ did far better","빈칸 문장의 형태 확인: be more likely to + 동사원형","매력 오답 주의: 기억하는 대상이 ‘장소’인지 ‘학습 자료’인지"],
+  flow:[["제안","always the same spot? → Don’t. study in different places","늘 같은 장소에서 공부하지 말고 여러 장소에서 공부하라"],["이유","creates variety → rich experience → reinforce learning","다양성이 만들어지고 그 풍부한 경험이 학습을 강화한다"],["사례","college students’ habit → reflected the research","여러 장소에서 과제를 한다는 대학생들의 습관이 연구와 일치했다"],["연구","study in at least two places → more likely to recall the material","최소 두 곳에서 공부하면 학습 자료를 기억할 가능성이 더 높다 (정답 ①)"],["실험","same room twice ↔ two locations → moved around did far better","같은 방 두 번 vs 두 장소 — 옮겨 다닌 쪽이 훨씬 더 잘 기억했다"],["원리","variety → rich association, even in the background","다양성은 풍부한 연상을 만든다. 의식 바깥에서 형성될 때조차도"]]
+ }},
+"m-6":{
+ v:[["challenging","어려운"],["describe","묘사하다"],["source","근원"],["familiar","익숙한"],["context","맥락"],["obviously","분명히"],["shape","형성하다"],["equipped","be equipped to ~할 채비가 되어 있다"]],
+ g:[
+  [0,"동명사 주어 / 간접의문문: [Talking about what something smells like] is the most basic way. 동명사구가 주어 → 동사는 단수(is). what something smells like = 어떤 것이 무슨 냄새가 나는지(smell like + 명사에서 명사 자리가 what으로 앞에 나온 형태). 같은 형태: how something smells."],
+  [1,"전치사 + 관계대명사: in the same way [in which “blue” or “green” describe colors]. in which = 관계부사처럼 ‘~하는 방식으로’(= in the same way that / as). There are no words {in the English language} to describe smells: to describe = words를 수식하는 형용사적 용법."],
+  [4,"be difficult to + 동사원형: even the most familiar odors are difficult to identify. 문장의 주어(odors)가 to identify의 의미상 목적어 → identify them이 아니라 identify로 끝난다. [when they are not experienced in their usual context] ← 수동태."],
+  [5,"be unable to / 수 일치: the majority of participants was unable to name ~. be unable to + 동사원형 = ~할 수 없다(= cannot). the majority of + 명사 → 수 일치는 뒤 명사를 따르는 것이 일반적이나, 집단 전체를 하나로 볼 때는 단수 취급도 가능. like beer, urine, roses ~의 like = ~와 같은(예시)."],
+  [6,"those who / 반복어 생략: even those [who couldn’t name any of these odors] would drink the beer but not (drink) the urine or the motor oil. but 뒤에 반복되는 would drink가 생략. 생략된 자리를 복원하며 읽는 연습이 필요하다."],
+  [7,"관계부사 how / 현재완료: This is [how evolution has shaped our brain]. This is how ~ = 이것이 ~하는 방식이다(how와 the way는 함께 쓰지 않는다: the way how ✕). has shaped = 현재완료(과거부터 지금까지 형성해 왔다). be well-equipped to + 동사원형 = ~할 채비가 잘 되어 있다."]
+ ],
+ exp:"정답 ② we are not well-equipped to talk about them\nbut 앞뒤의 대비를 보면 끝난다: respond to odors correctly ↔ not well-equipped to talk\n반응(행동)은 정확 ↔ 언어(말하기)는 부족\n글 전체가 ‘냄새를 말하기 어렵다’는 이야기 → 결론도 같은 방향. 첫 문장의 challenging과 정확히 이어진다.\n\n[오답 분석]\n① 근원을 정확히 식별한다 → 실험이 정반대를 보여 준다(이름을 못 댔다)\n③ 강한 감정으로 이어지지 않는다 → 감정 이야기는 언급 없음\n④ 시각 정보 없이 구분 못한다 → 시각은 등장하지 않는다\n⑤ 맥락이 없으면 반응이 틀릴 수 있다 → 반응은 옳았다. 소변은 안 마셨다\n⑤가 최다 오답 후보: ‘맥락(context)’이라는 지문 단어를 그대로 썼기 때문",
+ lec:{
+  warm:["이 냄새를 말로 설명해 보라","색깔: 파랑 · 초록 · 노랑 → 색 자체를 가리키는 단어가 있다","냄새: ??? → 냄새 자체를 가리키는 단어가 있는가?","우리가 쓰는 말: ‘꽃 냄새’ · ‘과일 냄새’ · ‘생선 냄새’ — 모두 냄새의 근원을 빌려 온 말","33번 지문의 출발점 → 냄새는 말하기 어렵다!"],
+  bg:[["배경 ① 냄새를 말하는 방식","색: blue / green → 색을 직접 묘사하는 단어","냄새: flowery / fruity / fishy → flower · fruit · fish에서 빌려옴","즉, 냄새 = ‘무엇의 냄새인가’로만 말할 수 있다. 영어만의 문제가 아니라 대부분의 언어가 그렇다."],["배경 ② 반응은 정확, 언어는 부족","실험: 맥주 · 소변 · 장미 · 모터 오일 → 대다수가 이름을 못 댐","그런데도: 맥주는 마시고 / 소변 · 모터 오일은 마시지 않는다","→ 냄새에 대한 ‘반응’은 정확하다 / 냄새에 대한 ‘말’만 부족하다. 빈칸은 이 대비의 뒷부분(말하기)에 들어간다."]],
+  strat:["문제 전략 · 빈칸 추론","빈칸 앞에 but → 앞 내용과 반대되는 말이 들어간다","앞: We respond to odors correctly (반응은 정확하다)","뒤(빈칸): 그러나 ~하지 못한다 → 무엇을?","글 전체의 화제: 냄새를 ‘말하기’의 어려움 → 빈칸도 그 이야기"],
+  flow:[["문제","talking about smells = the most basic way → but challenging","냄새를 말하는 것은 가장 기본적인 방식인데도 어렵다"],["이유","no words to describe smells like blue or green describe colors","색과 달리 냄새를 직접 묘사하는 단어가 영어에 없다"],["대안","we talk about the source: flowery, fruity, fishy","그래서 냄새의 근원을 빌려 말한다"],["심화","familiar odors are hard to identify outside their usual context","가장 익숙한 냄새조차 일상의 맥락 밖에서는 식별하기 어렵다"],["실험","unable to name beer, urine, roses / but would drink only the beer","이름은 못 댔지만 맥주만 마시고 소변·모터 오일은 마시지 않았다"],["결론","respond correctly ↔ not well-equipped to talk about them","반응은 정확하지만 그것을 말할 채비는 되어 있지 않다 (정답 ②)"]]
+ }},
+"m-7":{
+ v:[["adapt","적응하다"],["in light of","~에 비추어"],["consequence","결과"],["praise","칭찬하다"],["conditioning exercise","조건화 운동"],["benefit","이익"],["discomfort","불편"],["reward","보상"]],
+ g:[
+  [0,"전치사 + 관계대명사 / by + 동명사: a way [in which human beings adapt and adjust to their circumstances]. in which = 관계부사 how처럼 ‘~하는 방식’(the way how ✕ → the way in which ○ / the way that ○). is by changing behaviors ~: by + 동명사 = ~함으로써(여기서는 보어 자리). the consequences [that they yield]는 목적격 관계대명사절."],
+  [1,"주격 관계대명사절 / be likely to: a child [who gets praised by her teacher …] is likely to continue. 선행사 + who + 동사 → 절이 주어(a child)를 수식(주어와 동사 is likely가 멀어지는 구조에 주의). be likely to + 동사원형 = ~할 가능성이 있다(지문에 두 번). get + 과거분사(수동): get praised = 칭찬을 받다(be동사 수동태보다 구어적). for doing an exercise correctly: 전치사 for + 동명사, 칭찬의 ‘이유’."],
+  [2,"give up / in favor of: is likely to give that exercise up in favor of another one. give up + 목적어(대명사면 give it up). in favor of ~ = ~을 위해, ~을 택하여. another one [that seems more promising]: one = exercise를 대신하는 부정대명사."],
+  [3,"tend to / help + 목적어 + 동사원형: we tend to do things [that bring us some kind of benefit]. ways [that help us avoid some kind of problem]: help + 목적어 + 동사원형(또는 to부정사), 여기서는 원형 avoid가 쓰였다."],
+  [4,"avoid + 동명사 / that절의 병렬: we tend to avoid acting in ways ~. avoid + 동명사(avoid to act ✕). 동명사만 목적어로 취하는 동사: avoid, stop, enjoy, mind, finish. things [that lead to problems] / ways [that do not bring any benefit]: 두 that절 모두 앞의 명사를 수식하는 주격 관계대명사절."]
+ ],
+ exp:"정답 ① changing behaviors in light of the consequences\n빈칸 뒤: the consequences [that they yield] = 행동이 낳는 결과\n예시 1: 칭찬(좋은 결과) → 그 방식을 계속한다 / 예시 2: 결과 없음 → 그 운동을 포기한다\n두 예시 모두 ‘결과를 보고 행동을 바꾼다’로 설명된다\nin light of ~ = ~에 비추어 → 판단 기준이 결과임을 드러내는 표현\n\n[오답 분석]\n② 이익을 받고도 그만둔다 → 글은 이익을 받으면 계속한다고 한다. 반대\n③ 어려움에도 새로운 도전 → 도전·의지 이야기는 등장하지 않는다\n④ 가능한 결과와 상관없이 운동한다 → 정반대. 결과를 보고 바꾼다\n⑤ 금전적 이익을 기대한 위험 감수 → financial은 지문에 없는 말\n④ 함정: exercise가 예시에 나왔다고 해서 주제가 ‘운동’인 것은 아니다",
+ lec:{
+  warm:["우리는 무엇을 보고 행동을 바꾸는가?","칭찬받은 방식 → 계속한다 / 효과가 없는 방식 → 그만둔다","공통점: 행동 자체가 아니라 → 그 행동이 ‘낳은 결과’를 본다","34번 지문의 주장 → 결과가 다음 행동을 결정한다!"],
+  bg:[["배경 ① 결과가 행동을 바꾼다","이익 · 보상이 따라온다 → 그 행동을 더 한다","문제 · 불편 · 불이익이 따라온다 → 덜 하거나 그만둔다","아무 결과도 없다 → 그 방식을 피한다","→ 세 경우 모두 판단 기준은 ‘결과(consequence)’ 하나뿐"],["배경 ② 이 글의 짜임","1문장: 주장 → 빈칸이 여기 있다","2~3문장: 예시 둘(칭찬받은 아이 / 효과 없는 운동을 포기한 무용수)","4~5문장: 일반화(한다 / 덜 한다 · 피한다)","빈칸 유형에서 주장이 맨 앞에 오면 → 근거는 전부 뒤에 있다"]],
+  strat:["문제 전략 · 빈칸 추론","빈칸 뒤 that they yield를 먼저 본다","they = 행동 / yield = 낳다 → ‘행동이 낳는 ○○’","빈칸에는 그 ○○를 포함한 말이 들어가야 한다","검증: 예시 두 개가 모두 그 말로 설명되는가?"],
+  flow:[["주장","adapt by changing behaviors in light of the consequences","인간은 행동이 낳는 결과에 비추어 행동을 바꿈으로써 환경에 적응한다 (정답 ①)"],["예시 1","a child gets praised → likely to continue doing it that way","정확히 해서 칭찬받은 아이는 그 방식으로 계속할 가능성이 있다"],["예시 2","no results → give up in favor of another one","효과가 없다고 느낀 무용수는 더 유망해 보이는 운동으로 바꾼다"],["일반화 1","do things that bring benefit / help us avoid problems","이익을 주거나 문제·불편·불이익을 피하게 돕는 방식으로 행동한다"],["일반화 2","do fewer things that lead to problems / avoid acting for no reward","문제로 이어지는 일은 덜 하고, 아무 이익도 없는 방식은 피한다"],["원리","the consequence decides the next behavior","결과가 다음 행동을 결정한다 — 세 경우 모두 기준은 결과 하나"]]
+ }}
+};
+</script>
+<script>Object.assign(LEC,{
+"m-8":{
+ v:[["the Ice Age","빙하기"],["ice sheet","얼음층"],["crucially","결정적으로"],["ice cap","만년설"],["melt","녹다"],["overnight","하룻밤 사이에"]],
+ g:[
+  [0,"부정어구 도치 / with + 목적어 + 분사: not only was the planet much colder, but it was much drier. not only이 문장 앞에 오면 「동사 + 주어」로 도치. {with ice sheets covering much of ~} = ~가 …한 채로(부대상황). / 관계대명사 what / 비교급: much of [what we call the northern hemisphere today]: what = ~하는 것, call + 목적어 + 명사. much colder / much drier / far less: much, far, even = 비교급 강조(훨씬)."],
+  [1,"associate A with B / 수량 비교급: we often associate the cold with the wet = A를 B와 연관 짓다. far less evaporation, fewer clouds, and less rain: less + 셀 수 없는 명사 / fewer + 셀 수 있는 명사(evaporation 불가산 → less, clouds 가산 → fewer)."],
+  [2,"분사구문 meaning / 가주어 it: our world was cold and dry, {meaning it was difficult for plants to grow}. , -ing = and + 동사(‘그리고 그것은 ~를 의미했다’). it(가주어) ~ for + 목적격(의미상 주어) + to부정사(진주어): 자라기 어려운 주체가 plants이므로 for plants."],
+  [3,"too ~ to / 목적격 관계대명사 생략: it’s too risky to depend on any one piece of land = 너무 ~해서 …할 수 없다. to produce the energy [(that) you need]: to produce = 목적을 나타내는 to부정사, you need 앞에 목적격 관계대명사 생략."],
+  [5,"관계부사 where / 사역동사 make: places [where they could make food grow most intensively]. where = 장소 선행사를 수식. make + 목적어 + 동사원형(make food grow, to grow ✕)."],
+  [6,"with + 목적어 + 분사: {with hunter-gatherers foraging and hunting} = 수렵채집인들이 채집하고 사냥하는 동안(부대상황)."]
+ ],
+ exp:"정답 ② (B) - (A) - (C)\n주어진 글 끝: it was much drier → 건조함을 설명할 단락이 와야 한다\n(B) 정말 추우면 증발·구름·비가 적다 → cold and dry\n(A) In this type of climate = (B)의 ‘춥고 건조한’ 기후\n(A) 끝: 기온이 오르고 만년설이 녹았다 → (C) The world got warmer\n연결 고리: drier → cold and dry → this climate → warmer and wetter\n\n[오답을 지우는 법]\n(C)로 시작하는 ④⑤ → The world got warmer가 갑자기 나올 수 없다. 주어진 글은 아직 ‘빙하기’에 머물러 있기 때문\n(A)로 시작하는 ① → this type of climate가 가리킬 대상이 없다\n(B)-(C)-(A)인 ③ → (C)에서 따뜻해졌는데 (A)에서 다시 농사 불가로 돌아간다\n핵심 도구: 지시어(this) · 비교급(warmer) · 시간 순서",
+ lec:{
+  warm:["추우면 비가 많이 올까?","우리 통념: 춥다 → 흐리고 → 비 · 눈이 많다","실제: 정말 추우면 → 증발 ↓ → 구름 ↓ → 비 ↓","그래서 빙하기는 춥고 + 건조했다","36번 지문의 출발점 → 추위보다 ‘건조함’이 결정적!"],
+  bg:[["배경 ① 빙하기의 기후 사슬","기온 ↓ → 바다·호수의 증발 ↓","증발 ↓ → 대기 중 수증기 ↓ → 구름 ↓ → 강수 ↓","강수 ↓ → 식물이 자라기 어렵다 → 농사는 선택지가 아니다","한 조각의 땅에 의존하는 것 = 너무 위험한 도박"],["배경 ② 빙하기 이후, 농업의 시작","기온 ↑ → 만년설이 녹음 → 생명의 폭발","세상이 더 따뜻하고 습해짐 → 식량이 잘 자라는 곳에 사람들이 모임","하룻밤 사이가 아니다: 아마도 수천 년","그 사이 사람들은 채집 · 사냥 + 농사 ‘부업’을 병행했다"]],
+  strat:["문제 전략 · 글의 순서","1단계: 주어진 글의 마지막 키워드를 잡는다 → much drier","2단계: 각 단락의 첫 문장에서 지시어 · 연결어를 찾는다","(A) In this type of climate → 앞에 기후 설명이 있어야 한다","(C) The world got warmer → 앞에 기온 상승이 있어야 한다","3단계: 시간 흐름으로 검산한다(춥고 건조 → 온난 → 습윤)"],
+  flow:[["도입","the Ice Age: much colder + crucially much drier","빙하기는 훨씬 추웠을 뿐 아니라 결정적으로 훨씬 건조했다"],["(B)","really cold → less evaporation, fewer clouds, less rain","정말 추우면 증발·구름·비가 적다 → 춥고 건조 → 식물이 자라기 어렵다"],["(A) ①","in this type of climate, farming isn’t an option","이런 기후에서 농사는 선택지가 아니다 — 한 땅에 의존하기엔 너무 위험"],["(A) ②","temperature rose, ice caps melted → explosion of life","기온이 오르고 만년설이 녹으면서 갑작스러운 생명의 폭발을 겪었다"],["(C)","warmer and wetter → people lived where food could grow","더 따뜻하고 습해지자 식량이 잘 자라는 곳 주변에 정착하기 시작했다"],["속도","not overnight → thousands of years, farming as a side hustle","하룻밤이 아니라 수천 년 — 채집·사냥을 하며 농사를 부업처럼 곁들였다"]]
+ }},
+"m-9":{
+ v:[["working memory","작업 기억"],["long-term memory","장기 기억"],["aware of","be aware of ~을 인식하다"],["limit","한계"]],
+ g:[
+  [0,"보어 역할의 that절 / be able to: The big difference is [that we are explicitly aware of ~]. 주어 + be동사 + that절 → that절이 보어(~라는 것이다). be aware of + 명사 = ~을 인식하다. we are not able to directly access: be able to + 동사원형 = ~할 수 있다(여기서는 부정)."],
+  [1,"by + 동명사: We access long-term memory by bringing the information into working memory. by + 동명사 = ~함으로써(수단·방법)."],
+  [2,"목적격 관계대명사 생략 / 현재완료: all the actors [(that) you have ever seen]. 명사 + 주어 + 동사 → 목적격 관계대명사 생략. have ever seen = 지금까지 본 적 있는(현재완료 경험, ever와 자주 함께). 지문에 또: all the actors [(that) you know]."],
+  [3,"수동태: They are stored in your long-term memory. be + 과거분사 = ~되어 있다(저장되는 쪽). outside your consciousness = 의식 밖에."],
+  [4,"가정법 과거: [if I asked you to list all the actors], you would use your working memory. if + 주어 + 과거동사 ~, 주어 + would + 동사원형 = 현재 사실과 다른 일을 가정(‘만약 ~한다면 …할 것이다’). 시제는 과거지만 뜻은 ‘지금’의 가정. 뒤의 Each actor would be an item도 같은 가정의 연장."],
+  [8,"try and / try to + 동사원형: Try and hold all the actors ~ = try to + 동사원형(구어체 명령문). You might try to visualize ~: try to = ~하려고 애쓰다. (비교: try + -ing = 시험 삼아 ~해 보다)"],
+  [10,"only의 위치 / at any one time: you still would only be aware of a few actors at any one time. only + 인식 대상 = 오직 ~만(범위 한정). at any one time = 한 번에. a few actors = 몇 명(긍정) / few actors = 거의 없다(부정). a limit of seven items or chunks = 7개 항목 또는 덩어리라는 한계."]
+ ],
+ exp:"정답 ⑤ (C) - (B) - (A)\n주어진 글 끝: 장기 기억에는 직접 접근할 수 없다\n(C) 그러면 어떻게? → 작업 기억으로 불러와서 접근한다 + 배우 예시 등장\n(B) However, if I asked you to list all the actors ← (C)의 배우를 받는다\n(A) But remember it has a limit ← it = (B)의 작업 기억\n연결 고리: 접근 불가 → 불러오기 → 실제로 꺼내 봄 → 그러나 7개 한계\n\n[오답을 지우는 법]\n(B)로 시작하는 ②③ → all the actors가 앞에 나온 적이 없다. However도 앞에 대조될 내용이 있어야 한다\n(A)로 시작하는 ① → it이 가리킬 대상이 없다(작업 기억이 아직 화제가 아님)\n(C)-(A)-(B)인 ④ → (A)에서 한계를 말한 뒤 (B)에서 다시 잘 꺼낸다고 하면 역행\n핵심 도구: 대명사 it · them / However · But / 예시의 등장 순서",
+ lec:{
+  warm:["아는 배우를 전부 떠올려 보라","지금 이 순간 머릿속에 떠오른 배우 → 몇 명?","분명 훨씬 더 많이 알고 있는데 → 왜 한꺼번에 안 떠오를까?","답: ‘저장된 양’과 ‘한 번에 의식하는 양’은 다르다","37번 지문의 출발점 → 두 기억의 차이!"],
+  bg:[["배경 ① 두 기억의 차이","작업 기억(working memory) = 지금 의식하고 있는 것 → 명시적으로 인식한다 / 용량이 작다","장기 기억(long-term memory) = 저장고 → 직접 접근 불가 / 용량이 거의 무한하다","접근 방법: 장기 기억 → 작업 기억으로 ‘불러오기’"],["배경 ② 7±2, 그리고 청킹","작업 기억의 한계 = 약 7개 항목(item) 또는 덩어리(chunk)","그래서 전화번호는 010-1234-5678처럼 끊어 쓴다","배우 한 명 = 항목 하나 → 한 번에 몇 명만 의식할 수 있다. ‘다 떠올려 보라’고 해도 한 번에 되지 않는 이유"]],
+  strat:["문제 전략 · 글의 순서","1단계: 주어진 글의 마지막 키워드 → not able to directly access","2단계: 각 단락 첫 문장의 지시어 · 연결어를 본다","(B) However, if I asked you to list all the actors → 앞에 actors가 있어야","(A) But remember it has a limit → it이 가리킬 대상이 앞에 있어야","3단계: 대명사 it · them이 가리키는 것으로 검산한다"],
+  flow:[["도입","working memory: explicitly aware ↔ long-term: no direct access","작업 기억은 명시적으로 인식하지만 장기 기억에는 직접 접근할 수 없다"],["(C) ①","we access it by bringing the information into working memory","정보를 작업 기억으로 불러옴으로써 장기 기억에 접근한다"],["(C) ②","right now: not aware of all the actors → stored outside consciousness","지금은 본 적 있는 배우들을 인식하지 못한다 — 의식 밖에 저장되어 있다"],["(B)","if I asked you to list them → retrieve them one by one","열거해 보라고 하면 작업 기억으로 하나씩 생각해 내 술술 말한다"],["(A) ①","But remember it has a limit of seven items or chunks","그러나 작업 기억에는 7개 항목 또는 덩어리라는 한계가 있다"],["(A) ②","try to visualize them → aware of only a few at any one time","한 무리로 시각화해 보려 해도 한 번에 몇 명만 인식할 뿐이다"]]
+ }},
+"m-10":{
+ v:[["gesture","제스처를 하다"],["describe","묘사하다"],["recall","기억해 내다"],["slide","미끄러지다",["sliding"]],["swing shut","흔들리며 닫히다",["swinging shut"]],["on its own","저절로"],["memorable","기억할 만한"]],
+ g:[
+  [1,"사역동사 have / 현재분사 후치 수식: We had adults watch videos. have + 목적어 + 동사원형 = ~가 …하게 하다. people {performing various actions} / a chicken {sliding to a policeman}: 명사 + 현재분사구 = ~하는(능동). a jogger bending down / a fence swinging shut도 같은 구조."],
+  [3,"주격 관계대명사 + be told to: Adults [who were told to gesture] remembered more. tell + 목적어 + to부정사 → 수동태 be told to + 동사원형(부정은 to 앞에 not: were told not to gesture). 주어 Adults와 동사 remembered 사이가 길다 → 관계사절을 괄호로 묶어 읽기. particularly several weeks later = 특히 몇 주 후에(더 그랬다)."],
+  [4,"to see if ~ / 가정의 조건: {To see [if we’d get the same effects [if people gestured on their own]]}. to see if ~ = ~인지 확인하기 위해(첫 if = ~인지, 명사절), 두 번째 if = 만약 ~라면(조건). 같은 if가 한 문장에서 두 가지 뜻. on one’s own = 스스로, 저절로."],
+  [5,"전치사 + 관계대명사 / 과거완료: items [on which they had gestured spontaneously]. 전치사 + 관계대명사 + 완전한 문장(gesture on items). had gestured = 과거완료(remembered보다 앞선 일). items on which they had not gestured와 대비. A better than B: A를 B보다 더 잘."],
+  [6,"동명사 주어 / make + 목적어 + 형용사: Producing gesture along with speech makes the information memorable. 동명사구 주어 → 동사는 단수 makes. make + 목적어 + 형용사 = ~를 …하게 만들다. the information {encoded in that speech}: 과거분사구가 information을 수식."]
+ ],
+ exp:"정답 ③\n③ 앞: 묘사 직후와 3주 후에 기억을 테스트했다(실험)\n주어진 문장: 제스처 집단이 더 많이 기억했다, 특히 몇 주 후(결과)\n③ 뒤: To see if we’d get the same effects ~(같은 결과인지 재확인)\nthree weeks later ↔ several weeks later → 시점이 맞물린다\n③에 문장이 없으면 the same effects가 가리킬 ‘결과’가 사라진다",
+ lec:{
+  warm:["말할 때 손을 쓰면 기억이 좋아질까?","길을 설명할 때 → 손으로 방향을 가리킨다 / 크기를 설명할 때 → 손으로 크기를 그린다","질문: 이 손짓이 ‘기억’에도 도움이 될까?","38번 지문의 답 → 말과 함께 한 제스처는 기억을 남긴다!"],
+  bg:[["배경 · 실험의 두 단계","실험 1: 제스처를 하라고 ‘지시’한 집단 ↔ 하지 말라고 지시한 집단 → 제스처 집단이 더 많이 기억(특히 몇 주 후)","실험 2: 아무 지시 없이 → ‘스스로’ 제스처하는지 관찰 → 자발적으로 제스처한 항목을 더 잘 기억","두 결과가 같다 → the same effects / the same patterns"]],
+  strat:["문제 전략 · 문장 삽입","1단계: 주어진 문장의 단서를 찾는다","the events(정관사) → 앞에 사건이 소개되어 있어야 한다 / remembered more → ‘결과’ → 실험 뒤에 와야 한다","2단계: 글에서 흐름이 ‘끊기는’ 곳을 찾는다","③ 뒤 the same effects → 앞에 effects(결과)가 없으면 어색"],
+  flow:[["질문","gesture while describing → recall the event better?","사건을 묘사하며 제스처를 하면 그 사건을 더 잘 기억해 낼 수 있을까?"],["실험 1","watch videos of odd actions → tested immediately and three weeks later","기이한 행동 영상을 보게 하고 묘사 직후와 3주 후에 기억을 테스트했다"],["결과 1","told to gesture → remembered more, particularly several weeks later","제스처를 하라고 들은 성인이 더 많이 기억했다 (주어진 문장 — 정답 ③)"],["실험 2","the same effects on their own? → no instructions about gesture","스스로 제스처할 때도 같은지 보려고 지시 없이 다시 실험했다"],["결과 2","the same patterns: gestured spontaneously → remembered better","자발적으로 제스처한 항목을 그렇지 않은 항목보다 더 잘 기억했다"],["결론","gesture along with speech → information memorable","말과 함께 하는 제스처는 그 말에 담긴 정보를 기억할 만하게 만든다"]]
+ }},
+"m-11":{
+ v:[["approximately","약"],["greenhouse gas","온실가스"],["carbon cycle","탄소 순환"],["regulator","조절자"],["atmosphere","대기"],["reflect","반사하다"],["release","방출하다"]],
+ g:[
+  [0,"수동태 / 비율 주어의 수 일치: Approximately 15-20% of global greenhouse gas emissions are caused by ~. be caused by ~ = ~에 의해 야기되다. 비율·부분 + of + 명사 → 동사는 of 뒤 명사에 맞춘다(emissions 복수 → are). 같은 규칙: most of, half of, some of, the rest of."],
+  [2,"convert A to B / be viewed as: They convert the CO2 in the air to oxygen. convert A to[into] B = A를 B로 전환하다. they are viewed as a natural regulator ~: be viewed as ~ = ~로 여겨지다(view A as B의 수동). 같은 형태: be regarded as, be thought of as, be seen as."],
+  [3,"lead to / 분사형 형용사: ~ will no doubt lead to the reduced presence of carbon dioxide. lead to + 명사 = ~로 이어지다, ~을 초래하다. the reduced presence / the increased existence: 과거분사가 명사 앞에서 형용사처럼(줄어든 / 늘어난). no doubt = 의심할 여지 없이."],
+  [4,"prevent A from -ing / 수동 동명사: deforestation is preventing this process from being fully accomplished. prevent A from -ing = A가 ~하는 것을 막다. being accomplished = 동명사의 수동형(과정은 ‘완수되는’ 쪽). 같은 형태: keep / stop / prohibit A from -ing."],
+  [5,"with + 목적어 + 보어: {with half of the Earth’s forests gone} = ~가 …한 상태로(부대상황)."],
+  [6,"진행형 수동태: more of the sun’s radiation is being reflected back to Earth. be being + 과거분사 = ~되고 있다. instead of being released = 방출되는 대신(전치사 + 수동 동명사). / cause + 목적어 + to부정사: this is causing the planet’s average temperature to rise = ~가 …하게 하다."],
+  [7,"when it comes to: deforestation is a major issue when it comes to global warming. when it comes to + 명사 = ~에 관해서라면. to는 전치사 → 뒤에 동사가 오면 -ing(when it comes to cooking)."]
+ ],
+ exp:"정답 ③\n③ 앞: 나무가 많으면 CO₂는 줄고 산소는 늘어난다(긍정적 과정)\n주어진 문장: Unfortunately, 삼림 벌채가 이 과정을 막고 있다(반전)\n③ 뒤: And with half of the Earth’s forests gone(벌채의 결과)\nthis process = 나무가 CO₂를 줄이고 산소를 늘리는 과정\n③에 문장이 없으면 ‘숲의 절반이 사라졌다’가 갑자기 튀어나온다",
+ lec:{
+  warm:["숲이 사라지면 왜 지구가 더워질까?","나무 → 이산화탄소를 흡수하고 산소를 내놓는다","나무가 사라지면 → 흡수할 곳이 사라진다","이산화탄소 ↑ → 열이 빠져나가지 못한다 → 기온 ↑","39번 지문의 흐름 → 삼림 벌채 = 지구 온난화의 주요 문제!"],
+  bg:[["배경 ① 나무와 탄소 순환","광합성(photosynthesis): CO₂ + 햇빛 → 산소 + 양분","그래서 나무 = 이산화탄소의 자연적 조절자. 나무가 많다 → 대기 중 CO₂ ↓ / 산소 ↑","이것이 지문의 ‘this process’가 가리키는 과정이다"],["배경 ② 온실 효과의 사슬","삼림 벌채 → 지구 숲의 절반이 사라짐 → 이산화탄소 점점 증가","→ 태양 복사 에너지가 우주로 나가지 못하고 지구로 되반사 → 지구 평균 기온 상승 = 지구 온난화","전 세계 온실가스 배출의 약 15~20%가 환경 악화와 삼림 벌채 때문"]],
+  strat:["문제 전략 · 문장 삽입","주어진 문장의 단서 두 개: Unfortunately → 앞은 긍정, 뒤는 부정으로 ‘반전’되는 자리 / this process → 앞에 어떤 ‘과정’이 설명되어 있어야 한다","글의 흐름 전환점 찾기: 나무의 긍정적 역할 → 삼림 벌채의 문제","③ 뒤 And with half of the Earth’s forests gone ← 벌채가 이미 언급된 뒤여야"],
+  flow:[["수치","15-20% of greenhouse gas emissions ← degradation and deforestation","전 세계 온실가스 배출의 약 15~20%가 환경 악화와 삼림 벌채 때문이다"],["역할","trees convert CO2 to oxygen → a natural regulator","나무는 광합성으로 이산화탄소를 산소로 바꾸는 자연적 조절자이다"],["효과","more trees → reduced CO2, increased oxygen","나무가 많을수록 대기 중 이산화탄소는 줄고 산소는 늘어난다"],["반전","Unfortunately, deforestation is preventing this process","불행하게도 삼림 벌채가 이 과정을 막고 있다 (주어진 문장 — 정답 ③)"],["결과","half of the forests gone → CO2 progressively rising","지구 삼림의 절반이 사라지면서 이산화탄소가 점점 증가하고 있다"],["결론","radiation reflected back → temperature rises → global warming","복사 에너지가 지구로 되반사되어 기온이 오른다 — 벌채는 온난화의 주요 문제"]]
+ }},
+"m-12":{
+ v:[["appropriate","적절한"],["unconscious","무의식적인"],["detector","감지기"],["determine","판단하다"],["determination","판단"],["fight or flight","싸움 또는 도피"],["generate","만들어 내다"],["in the first place","애초에"],["justify","정당화하다"],["internally","내면적으로"]],
+ g:[
+  [1,"It is ~ that 강조 구문(+ 삽입절): It is [what ~ is an unconscious ‘danger detector’] that determines ~ = ~하는 것은 바로 …이다. 강조된 것은 원래 문장의 주어(명사절). It is와 that을 지워도 문장이 성립 → 강조 구문의 증거. / what절 속의 삽입절: [what [psychologist Joseph LeDoux has suggested] is an unconscious detector]. 삽입절을 지우면 what is an unconscious detector. 「what + 주어 + 동사 + 동사」 형태를 보면 삽입절을 의심한다."],
+  [1,"whether or not / before절: that determines [whether or not something or someone is safe] = ~인지 아닌지(명사절, determines의 목적어). [before we can even begin to consciously make a determination]: to consciously make = to와 동사 사이에 부사가 들어간 형태."],
+  [2,"be assessed to be / 계속적 용법: When the object is assessed to be dangerous, a fear response ~ occurs. be assessed to be ~ = ~라고 평가되다(assess A to be B의 수동). a fear response, [which has been called “fight or flight,”] occurs: 콤마 + which = 추가 설명, has been called = 현재완료 수동태. 주어와 동사 occurs가 멀리 떨어져 있다."],
+  [3,"reasons for why / in the first place: we simply begin to generate reasons for why it was accurate in the first place. reasons for why ~ = ~인 이유들. in the first place = 애초에(문장 앞이면 ‘우선, 첫째로’). of course = 물론, 당연히(문장 중간 삽입)."],
+  [4,"be convinced that / to부정사(목적): We are generally convinced that our decisions are “rational”. be convinced that ~ = ~라고 확신하다. we collect or generate the facts to justify these decisions: to + 동사원형 = ~하기 위해(목적). 요약문의 (B) 자리가 바로 이 to justify."],
+  [5,"현재완료 / before + 현재완료: we have already launched into action internally. have already + 과거분사 = 이미 ~해 버렸다(완료). [before we have even started “thinking”]: before절 안의 현재완료 = ~하기도 전에. launch into ~ = ~을 시작하다."]
+ ],
+ exp:"정답 ① automatic … support\n(A) 근거: an unconscious “danger detector” / before we can even begin to consciously make a determination → 의식하기 전에 저절로 = automatic\n(B) 근거: we collect or generate the facts to justify these decisions → justify(정당화하다) = support(뒷받침하다)\n\n[오답 분석]\n② purposeful(의도적인) → 무의식적이라고 했다. challenge(반박)도 반대\n③ analytical(분석적인) → 분석은 의식적 사고. 글의 핵심과 정반대\n④ detailed(세밀한) → 세밀함은 언급되지 않는다\n⑤ immediate(즉각적인)는 (A)로 그럴듯하다 → 하지만 alter(바꾸다)가 틀림\n⑤ 함정: (A)만 보고 고르면 틀린다. (B)까지 반드시 확인",
+ lec:{
+  warm:["생각하기 전에 이미 움직였던 적 있는가?","우리가 믿는 순서: 생각 → 판단 → 행동","지문이 말하는 순서: 감정 반응 → 행동 → 이유 만들기"],
+  bg:[["배경 ① 무의식적 위험 감지기 (LeDoux)","대상을 봄 → 위험 감지기 → 공포 반응(fight or flight, 싸움 또는 도피)","무의식이 의식적 판단보다 먼저: before we can even begin to make a determination"],["배경 ② 감정이 먼저, 이유는 나중","우리의 믿음: 사실 수집 → 이성적 판단 → 결정","그러나 실제: 감정적 결정 → 사실 수집·생성 → 정당화"]],
+  strat:["문제 전략 · 요약문 완성","1단계: 요약문을 먼저 읽고 (A)(B)의 ‘방향’을 예측","2단계: 지문에서 그 자리에 해당하는 표현을 찾는다","(A) before conscious thinking → unconscious · before we can even begin","(B) generating reasons to ___ them → to justify these decisions","3단계: (A)(B) 둘 다 맞는 선택지만 남긴다"],
+  flow:[["일상","every day we decide what is safe or not, what is appropriate or not","우리는 매일 무엇이 안전한지, 무엇이 적절한지 결정을 내린다"],["감지기","an unconscious danger detector → before we consciously decide","의식적으로 판단하기도 전에 무의식적 위험 감지기가 안전 여부를 가른다"],["반응","assessed to be dangerous → a fear response: fight or flight","위험하다고 평가되면 ‘싸움 또는 도피’라는 공포 반응이 일어난다"],["합리화","we generate reasons for why it was accurate","오류를 고치기보다 그것이 왜 맞았는지 이유를 만들어 낸다"],["실제","decisions made emotionally → facts to justify them","이성적이라 믿지만 실제로는 감정으로 결정하고 정당화할 사실을 모은다"],["요약","automatic assessment → reasons to support them","의식적 사고 전 자동적 평가, 감정 기반 결정 후 뒷받침할 이유 (정답 ①)"]]
+ }},
+"tb-1":{lec:{
+  warm:["우리 것 중에 세계가 알아본 것은?","K-pop, K-drama, 김밥, 라면 … 그 다음은?","여러분이 아는 ‘해외에서 유명한 한국 것’ 3가지를 말해 보자.","그것이 왜 인정받았을까? 값이 싸서? 품질이 좋아서?","이 지문에서 살펴볼 두 가지: 한지(hanji)와 호미(homi) — 둘 다 ‘전통’적인 물건인데 오늘날 전 세계적으로 팔리고 있다."],
+  bg:[["배경 ① 한지는 어떤 종이인가","닥나무 껍질을 원료로 장인이 손으로 떠서 만든다.","섬유가 가로·세로로 교차 → 어느 쪽으로 당겨도 잘 안 찢어진다.","습도가 변해도 크기와 모양이 잘 변하지 않는다. “천 년을 견디는 종이”","일본의 화지(washi)는 섬유가 한 방향 → 한쪽으로는 잘 찢어진다."],["배경 ② 문화재 복원에 왜 ‘종이’를 쓸까?","갈라진 틈을 메우고, 찢어진 부분을 뒤에서 덧대어 보강한다. 그림·가구·조각품까지 종이로 수선한다.","조건: 얇고 가볍고, 질기고, 시간이 지나도 변하지 않아야 한다.","전 세계 복원용 종이 시장은 오랫동안 일본 화지가 독점 → 이 시장에 한지가 도전한 이야기가 오늘의 지문이다."],["배경 ③ 실제로 일어난 일 (2016~2017, 루브르)","루브르 복원팀장 아리안 드 라 샤펠이 전주를 방문해 한지 제작을 확인","루브르에서 일한 한국인 복원사 김민중이 한지와 화지를 비교 연구","2017년, 200년 된 ‘막시밀리앙 2세의 책상’ 복원에 전주한지 사용","루브르가 수십 년간 쓴 일본 화지 대신 한지를 처음 선택. 이후 로스차일드 컬렉션 판화 등 다른 소장품 복원에도 사용"]],
+  flow:[["배경","restoration of cultural assets ← washi (Japan)","유럽에서 문화재 복원에 종이 사용 / 일본 화지가 오랫동안 독점"],["계기","a Korean at the Louvre (2014) → his study: hanji vs washi","루브르에서 일하던 한국인이 한지의 가치를 알리려 함"],["실험","wet both washi and hanji → compare their durability","두 종이를 적셔 내구성을 비교하는 실험"],["이유","horizontal + vertical fibers → closely woven → durable","가로·세로 섬유가 촘촘히 짜여 튼튼하고, 크기·모양도 잘 유지"],["결과","2017: restored a relic → more and more → the Mona Lisa?","루브르가 한지를 처음 사용, 이후 점점 더 많은 유물 복원에 사용"]]
+ }},
+"tb-2":{lec:{
+  warm:["이 물건, 왜 외국에서 난리일까?","여러분 집이나 학교 텃밭에 호미가 있는가?","호미로 할 수 있는 일을 떠올려 보자. 몇 가지나 되는가?","서양 정원사들은 그 일을 도구 몇 개로 할까?","앞에서 본 한지처럼, 호미도 ‘전통’이 세계에서 인정받은 사례다"],
+  bg:[["배경 ① 호미는 어떤 도구인가","날과 자루가 ㄱ자로 꺾여 있어 손목에 힘이 덜 들어간다.","얇은 날 → 잡초 뽑기 / 뾰족한 끝 → 땅 파기 / 평평한 면 → 땅 다지기","도구 하나로 세 가지 일 = 서양의 원예 도구 3개 몫. 서양에는 삽은 있어도 이렇게 꺾인 농기구가 없었다."],["배경 ② 2019년, 아마존에서 벌어진 일","한 유튜버의 정원 가꾸기 영상이 퍼지면서 주문이 몰렸다.","2019년 아마존 원예용품 ‘톱10’에 경북 영주의 호미가 올랐다","국내 약 4,000원 → 아마존에서 15~25달러에 판매. 지문의 리뷰 세 개(Lina, Oliver, Benjamin)는 이런 후기를 옮긴 것이다."],["배경 ③ 만드는 사람 — 대장장이","영주대장간 석노기 장인: 14살에 대장간 일을 시작, 1976년 개업","전통 방식으로 호미 하나를 만드는 데 약 한 시간. 손으로 여러 번 두드릴수록 쇠가 단단하고 정교해진다","기계로 찍어 낸 도구와 달라지는 지점이 바로 이 망치질이다. 지문의 handmade / hammered several times by hand 대목과 연결된다."]],
+  flow:[["현상","reviews and videos → the hot new tool gardeners must have","온라인의 호평 리뷰와 사용법 영상 / 전 세계 정원사가 원하는 새 인기 도구"],["계기","2019: a video spread → one of the top selling gardening tools","2019년 사용법 영상이 퍼지며 세계 최대 쇼핑몰 판매 상위권에 오름"],["이유 1","an ideal shape → makes all those activities possible with one tool","잡초 뽑기·땅 파기·다지기를 도구 하나로 (얇은 날 / 뾰족한 끝 / 평평한 면)"],["이유 2","handmade by blacksmiths → the best angles, no pain","대장장이의 수십 년 경험으로 찾은 손잡이와 날의 최적 각도"],["차별점","hammered by hand → stronger and more elaborate","손으로 여러 번 망치질 → 기계로 만든 도구와 달라지는 지점"],["결론","the reputation of Korean heritage → its value and potential","한국 유산의 명성이 세계로 / 세계가 그 가치와 잠재력을 발견하는 중"]]
+ }}
+});
+</script>
+<script>(function(){
+"use strict";
+const CIRC=["①","②","③","④","⑤"];
+const $=(s,r)=>(r||document).querySelector(s);
+const esc=s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const attr=s=>esc(s).replace(/"/g,"&quot;");
+const rnd=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+
+/* ---------- storage ---------- */
+let S={sent:{},wrong:{},vs:{},vw:{},key:"",model:"claude-sonnet-5-5",ai:{}};
+try{const r=localStorage.getItem("esite.v1");if(r)S=Object.assign(S,JSON.parse(r));}catch(e){}
+Object.keys(S.wrong||{}).forEach(k=>{if(!S.wrong[k]||S.wrong[k].kind!=="mcq")delete S.wrong[k];});
+let st_t;function save(){clearTimeout(st_t);st_t=setTimeout(()=>{try{localStorage.setItem("esite.v1",JSON.stringify(S));}catch(e){}},120);}
+
+/* ---------- data ---------- */
+const P=[].concat(TEXTBOOK.map(p=>Object.assign({group:"tb"},p)),MOCK.map(p=>Object.assign({group:"mock",title:"모의고사 "+p.no+"번"},p)));
+P.forEach(p=>{
+  const L=(typeof LEC!=="undefined")&&LEC[p.id];if(!L)return;
+  if(L.v){const have={};p.v.forEach(x=>have[x[0].toLowerCase()]=1);L.v.forEach(x=>{if(!have[x[0].toLowerCase()]){p.v.push(x);have[x[0].toLowerCase()]=1;}});}
+  if(L.g)p.g=L.g;
+  if(L.exp&&p.q&&p.q[0])p.q[0].exp=L.exp;
+  if(L.lec)p.lec=L.lec;
+});
+function makeMatcher(vocab){
+  const terms=[];
+  vocab.forEach((v,i)=>[v.w].concat(v.forms||[]).forEach(t=>terms.push({t:t.toLowerCase(),i})));
+  if(!terms.length)return null;
+  terms.sort((a,b)=>b.t.length-a.t.length);
+  const src="\\b(?:"+terms.map(x=>x.t.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")).join("|")+")\\w*";
+  return {src,find(m){const l=m.toLowerCase();for(const x of terms)if(l.startsWith(x.t))return x.i;return -1;}};
+}
+P.forEach(p=>{
+  p.sents=p.s.map(a=>({en:a[0],ko:a[1],mark:a[2]||""}));
+  p.vocab=p.v.map(a=>({w:a[0],m:a[1],forms:a[2]||[]}));
+  p.gram={};(p.g||[]).forEach(a=>{(p.gram[a[0]]=p.gram[a[0]]||[]).push(a[1]);});
+  p.qs=p.q||[];
+  p.m=makeMatcher(p.vocab);
+});
+const byId={};P.forEach(p=>byId[p.id]=p);
+function hl(p,text){
+  const e=esc(text);if(!p.m)return e;
+  return e.replace(new RegExp(p.m.src,"gi"),m=>{const i=p.m.find(m);return i<0?m:'<mark class="vw" data-v="'+i+'">'+m+'</mark>';});
+}
+
+/* ---------- ui state ---------- */
+const ui={tab:"study",
+ st:{pid:null,mode:"full",gram:false,only:false,ci:0,copen:false,cdone:false},
+ qz:{pid:P[0].id,sub:"preset",dm:"blank",sel:{},done:{},drills:{},ord:{},hint:false,aiBusy:false,aiErr:"",aiKind:"혼합",aiN:3},
+ vc:{filter:"all",mode:"list",hideM:false,ses:null},
+ reg:{}};
+
+/* ---------- helpers ---------- */
+function toast(t){const e=$("#toast");e.textContent=t;e.classList.add("on");clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove("on"),1600);}
+function speak(w){try{const u=new SpeechSynthesisUtterance(w);u.lang="en-US";speechSynthesis.cancel();speechSynthesis.speak(u);}catch(e){}}
+function sentState(pid,i){return S.sent[pid+":"+i]||"";}
+function pOptions(sel){
+  const g=(grp,label)=>'<optgroup label="'+label+'">'+P.filter(p=>p.group===grp).map(p=>'<option value="'+p.id+'"'+(sel===p.id?" selected":"")+'>'+esc(p.title)+(p.kind?" · "+esc(p.kind):"")+'</option>').join("")+'</optgroup>';
+  return g("tb","교과서")+g("mock","모의고사");
+}
+function wrongCount(){return Object.keys(S.wrong).length;}
+
+/* ---------- render root ---------- */
+function render(top){
+  ui.reg={};
+  const app=$("#app");
+  app.innerHTML=ui.tab==="study"?viewStudy():ui.tab==="quiz"?viewQuiz():viewVocab();
+  document.querySelectorAll("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.tab===ui.tab));
+  $("#pop").hidden=true;
+  if(top)window.scrollTo(0,0);
+}
+
+/* ================= STUDY ================= */
+function viewStudy(){return ui.st.pid?studyDetail(byId[ui.st.pid]):studyList();}
+function studyList(){
+  const row=p=>{
+    const n=p.sents.length,k=p.sents.filter((_,i)=>sentState(p.id,i)==="know").length,u=p.sents.filter((_,i)=>sentState(p.id,i)==="unsure").length;
+    return '<button class="prow" data-act="openp" data-pid="'+p.id+'"><span class="pt">'+esc(p.title)+'</span><span class="pk">'+esc(p.kind||"")+(p.exam?" · "+esc(p.exam):"")+'</span><span class="ps">'+esc(p.sub||"")+'</span><span class="pbar"><i style="width:'+(k/n*100)+'%"></i></span><span class="pm">알았어요 '+k+'/'+n+(u?' · 헷갈려요 '+u:'')+'</span></button>';
+  };
+  return '<div class="top"><h1>지문 공부</h1></div><h2>교과서 본문</h2><div class="plist">'+P.filter(p=>p.group==="tb").map(row).join("")+'</div><h2>모의고사 (2026학년도 6월 고1)</h2><div class="plist">'+P.filter(p=>p.group==="mock").map(row).join("")+'</div>';
+}
+function sentHTML(p,i){
+  const s=p.sents[i],stt=sentState(p.id,i),notes=p.gram[i];
+  return '<div class="sent '+stt+(ui.st.mode==="full"?" open":"")+'" data-i="'+i+'"><div class="en">'+(s.mark?'<span class="mk-chip">'+esc(s.mark)+'</span>':"")+hl(p,s.en)+'</div><div class="ko">'+esc(s.ko)+'</div>'+(notes&&ui.st.gram?'<div class="gn">'+notes.map(n=>'<p>'+esc(n)+'</p>').join("")+'</div>':"")+markRow(stt)+'</div>';
+}
+function markRow(stt){return '<div class="mkrow"><button data-act="mark" data-v="know" class="'+(stt==="know"?"on":"")+'">알았어요</button><button data-act="mark" data-v="unsure" class="'+(stt==="unsure"?"on":"")+'">헷갈려요</button></div>';}
+function studyDetail(p){
+  const s=ui.st,n=p.sents.length;
+  const k=p.sents.filter((_,i)=>sentState(p.id,i)==="know").length,u=p.sents.filter((_,i)=>sentState(p.id,i)==="unsure").length;
+  let h='<div class="sticky"><div class="top"><button class="back sm" data-act="back">‹ 목록</button><h1>'+esc(p.title)+'</h1></div><div class="seg">'+
+   [["full","전체 보기"],["hide","해석 가리기"],["card","카드"]].map(m=>'<button data-act="smode" data-m="'+m[0]+'" class="'+(s.mode===m[0]?"on":"")+'">'+m[1]+'</button>').join("")+'</div></div>';
+  h+=lecHTML(p);
+  h+='<div class="toolbar"><span>알았어요 '+k+' · 헷갈려요 '+u+' / '+n+'</span><span class="sp"></span>'+
+   (Object.keys(p.gram).length?'<label><input type="checkbox" data-act="gram" '+(s.gram?"checked":"")+'> 문법 포인트</label>':"")+
+   (s.mode!=="full"?'<label><input type="checkbox" data-act="only" '+(s.only?"checked":"")+'> 헷갈린 것만</label>':"")+'</div>';
+  if(s.mode==="hide"){h+='<div class="toolbar"><button class="sm" data-act="openall">전체 열기</button><button class="sm" data-act="closeall">전체 가리기</button><span class="sp"></span><span>문장을 탭하면 해석이 열려요</span></div>';}
+  if(s.mode==="card"){h+=cardView(p);}
+  else{
+    const idx=p.sents.map((_,i)=>i).filter(i=>s.mode==="full"||!s.only||sentState(p.id,i)==="unsure");
+    h+='<div class="sents mode-'+s.mode+'">'+(idx.length?idx.map(i=>sentHTML(p,i)).join(""):'<div class="empty">헷갈려요로 표시한 문장이 없어요.</div>')+'</div>';
+  }
+  h+=flowHTML(p);
+  if(p.vocab.length){h+='<h2>핵심 어휘</h2><div class="vlist">'+p.vocab.map(v=>'<div><b>'+esc(v.w)+'</b> '+esc(v.m)+'</div>').join("")+'</div>';}
+  h+='<button class="pri cta" data-act="gotoquiz">이 지문 문제 풀기</button>';
+  return h;
+}
+function cardView(p){
+  const s=ui.st;
+  const idx=p.sents.map((_,i)=>i).filter(i=>!s.only||sentState(p.id,i)==="unsure");
+  if(!idx.length)return '<div class="empty">헷갈려요로 표시한 문장이 없어요.</div>';
+  if(s.cdone){const u=p.sents.filter((_,i)=>sentState(p.id,i)==="unsure").length;
+    return '<div class="score"><b>끝!</b><p>헷갈려요 '+u+'개</p><button class="pri" data-act="creplay" data-only="0">처음부터</button> <button data-act="creplay" data-only="1">헷갈린 것만</button></div>';}
+  if(s.ci>=idx.length)s.ci=idx.length-1;
+  const i=idx[s.ci],ss=p.sents[i],stt=sentState(p.id,i);
+  return '<div class="cnt">'+(s.ci+1)+' / '+idx.length+'</div><div class="bigcard" data-act="copen"><div class="en">'+(ss.mark?'<span class="mk-chip">'+esc(ss.mark)+'</span>':"")+hl(p,ss.en)+'</div><div class="ko'+(s.copen?"":" film")+'">'+esc(ss.ko)+'</div></div>'+
+   (s.copen&&ui.st.gram&&p.gram[i]?'<div class="gn">'+p.gram[i].map(n=>'<p>'+esc(n)+'</p>').join("")+'</div>':"")+
+   '<div class="mkrow" style="justify-content:center">'+'<button data-act="cmark" data-v="know" class="'+(stt==="know"?"on":"")+'">알았어요</button><button data-act="cmark" data-v="unsure" class="'+(stt==="unsure"?"on":"")+'">헷갈려요</button></div><div class="cnav"><button data-act="cprev">이전</button><button data-act="cnext">다음</button></div>';
+}
+function lecHTML(p){
+  const L=p.lec;if(!L)return "";
+  const blk=arr=>'<div class="lb"><b>'+esc(arr[0])+'</b>'+arr.slice(1).map(x=>'<p>'+esc(x)+'</p>').join("")+'</div>';
+  let h='<details class="lec"><summary>수업 자료 · 배경지식과 문제 전략</summary>';
+  if(L.warm)h+=blk(["Warm-up · "+L.warm[0]].concat(L.warm.slice(1)));
+  (L.bg||[]).forEach(b=>h+=blk(b));
+  if(L.strat)h+=blk(L.strat);
+  return h+'</details>';
+}
+function flowHTML(p){
+  const L=p.lec;if(!L||!L.flow)return "";
+  return '<details class="lec"><summary>지문 한눈에 보기 (핵심 흐름)</summary>'+L.flow.map(f=>'<div class="fl"><span class="mk-chip">'+esc(f[0])+'</span><div class="fe">'+esc(f[1])+'</div><div class="fk">'+esc(f[2])+'</div></div>').join("")+'</details>';
+}
+function openStudy(pid,word){
+  ui.tab="study";ui.st.pid=pid;ui.st.mode="full";ui.st.ci=0;ui.st.copen=false;ui.st.cdone=false;ui.st.only=false;
+  render(true);
+  if(word){
+    const p=byId[pid],vi=p.vocab.findIndex(v=>v.w.toLowerCase()===word.toLowerCase());
+    if(vi>=0&&p.m){
+      const si=p.sents.findIndex(s=>{const re=new RegExp(p.m.src,"gi");let m;while((m=re.exec(s.en)))if(p.m.find(m[0])===vi)return true;return false;});
+      const el=si>=0&&document.querySelector('.sent[data-i="'+si+'"]');
+      if(el){el.classList.add("flash");setTimeout(()=>el.scrollIntoView({block:"center"}),30);}
+    }
+  }
+}
+
+/* ================= QUIZ ================= */
+function mcqQ(item){return item.ai?item.ai:byId[item.pid].qs[item.qi];}
+function buildBody(p,b){
+  const E=i=>esc(p.sents[i].en);
+  if(!b)return "<p>"+p.sents.map((_,i)=>E(i)).join(" ")+"</p>";
+  if(b.order){const o=b.order,j=a=>a.map(E).join(" ");return '<p class="given">'+j(o.given)+'</p><p><b>(A)</b> '+j(o.A)+'</p><p><b>(B)</b> '+j(o.B)+'</p><p><b>(C)</b> '+j(o.C)+'</p>';}
+  if(b.ins){const out=[];p.sents.forEach((_,i)=>{if(i===b.ins.given)return;out.push(E(i));const n=b.ins.after.indexOf(i);if(n>=0)out.push('<span class="pos">( '+CIRC[n]+' )</span>');});return '<div class="given">'+E(b.ins.given)+'</div><p>'+out.join(" ")+'</p>';}
+  let t=p.sents.map((_,i)=>(b.excl&&b.excl.indexOf(i)>=0)?null:E(i)).filter(x=>x!==null).join(" ");
+  (b.rep||[]).forEach(r=>{t=t.replace(esc(r[0]),()=>r[1]);});
+  t=t.replace(/__BLANK__/g,'<span class="blank"></span>');
+  return "<p>"+t+"</p>"+(b.append?'<p class="sum">'+b.append+'</p>':"");
+}
+function mcqHTML(ctx,item,no){
+  const q=mcqQ(item),p=byId[item.pid],sk=ctx+"|"+item.key;
+  ui.reg[sk]=item;
+  const sel=ui.qz.sel[sk],done=!!ui.qz.done[sk];
+  const body=item.ai?(q.body?'<div class="qbody">'+(q.html?q.body:esc(q.body).replace(/\n/g,"<br>"))+'</div>':""):'<div class="qbody">'+buildBody(p,q.b)+'</div>';
+  const cls=i=>done?(i===q.a?" right":(i===sel?" wrong":"")):(i===sel?" pick":"");
+  const choices=q.pos
+    ?'<div class="poschoices">'+q.choices.map((c,i)=>'<button class="ch'+cls(i)+'" data-act="choose" data-sk="'+attr(sk)+'" data-c="'+i+'"'+(done?" disabled":"")+'>'+esc(c)+'</button>').join("")+'</div>'
+    :'<ul class="choices">'+q.choices.map((c,i)=>'<li><button class="ch'+cls(i)+'" data-act="choose" data-sk="'+attr(sk)+'" data-c="'+i+'"'+(done?" disabled":"")+'>'+CIRC[i]+' '+esc(c)+'</button></li>').join("")+'</ul>';
+  let foot="";
+  if(done){const ok=sel===q.a;foot='<div class="exp '+(ok?"ok":"no")+'"><div class="res">'+(ok?"정답!":"오답 — 정답은 "+(q.pos?q.choices[q.a]:CIRC[q.a]))+'</div>'+esc(q.exp||"")+'</div><div class="qfoot"><button data-act="reset" data-sk="'+attr(sk)+'">다시 풀기</button></div>';}
+  else foot='<div class="qfoot"><button class="pri" data-act="check" data-sk="'+attr(sk)+'">정답 확인</button></div>';
+  return '<div class="q" data-sk="'+attr(sk)+'" data-no="'+(no||"")+'"><div class="qhead">'+(no?'<span class="qno">'+no+'</span>':"")+'<span>'+esc(q.kind||"")+'</span>'+(ctx==="w"?'<span class="qpid">'+esc(p.title)+'</span>':"")+'</div><div class="qstem">'+esc(q.q)+'</div>'+body+choices+foot+'</div>';
+}
+function presetItems(p){return p.qs.map((q,qi)=>({kind:"mcq",pid:p.id,qi:qi,key:"m:"+p.id+":"+qi}));}
+
+/* drills: 자동 생성 문제도 모두 5지선다 */
+function mkMC(pid,key,kind,q,html,choices,ans,exp){return {kind:"mcq",pid:pid,key:key,ai:{kind:kind,q:q,body:html,html:true,choices:choices,a:ans,exp:exp}};}
+function genBlanks(p,n){
+  const terms=[];p.vocab.forEach(v=>[v.w].concat(v.forms||[]).forEach(t=>terms.push(t.toLowerCase())));
+  const cand=[];
+  if(p.m)p.sents.forEach((s,si)=>{const rx=new RegExp(p.m.src,"gi");let m;const r=[];while((m=rx.exec(s.en))){if(terms.indexOf(m[0].toLowerCase())>=0)r.push([m.index,m.index+m[0].length]);}if(r.length)cand.push({si:si,r:r});});
+  const pool=vocabAll().map(o=>o.w);
+  return rnd(cand).slice(0,n).map(c=>{
+    const t=rnd(c.r)[0],s=p.sents[c.si].en,ans=s.slice(t[0],t[1]),al=ans.toLowerCase();
+    const cap=x=>/[A-Z]/.test(ans[0])?x.charAt(0).toUpperCase()+x.slice(1):x;
+    let dis=rnd(p.vocab.map(v=>v.w).filter(w=>w.toLowerCase()!==al)).slice(0,4);
+    if(dis.length<4)dis=dis.concat(rnd(pool.filter(w=>w.toLowerCase()!==al&&dis.indexOf(w)<0)).slice(0,4-dis.length));
+    const opts=rnd(dis.map(cap).concat([ans]));
+    const vi=p.m.find(ans),mean=vi>=0?p.vocab[vi].m:"";
+    const html="<p>"+esc(s.slice(0,t[0]))+'<span class="blank"></span>'+esc(s.slice(t[1]))+'</p><div class="hint-ko">'+esc(p.sents[c.si].ko)+"</div>";
+    return mkMC(p.id,"b:"+p.id+":"+c.si+":"+t[0],"빈칸 (어휘)","다음 빈칸에 들어갈 말로 가장 적절한 것은?",html,opts,opts.indexOf(ans),"정답: "+ans+(mean?" ("+mean+")":""));
+  });
+}
+function genOrders(p,n){
+  const N=p.sents.length,out=[],seen={};
+  const perms=[["A","B","C"],["A","C","B"],["B","A","C"],["B","C","A"],["C","A","B"],["C","B","A"]].map(x=>"("+x[0]+") - ("+x[1]+") - ("+x[2]+")");
+  const E=i=>esc(p.sents[i].en);
+  for(let t=0;t<n*12&&out.length<n;t++){
+    const g=(N>=7&&Math.random()<0.5)?2:1,w=1+3*g;
+    if(N<w)continue;
+    const st=Math.floor(Math.random()*(N-w+1));
+    let ok=true;for(let i=st;i<st+w;i++)if(p.sents[i].en.split(" ").length<4&&t<n*8)ok=false;
+    if(!ok)continue;
+    const key="o:"+p.id+":"+st+":"+g;if(seen[key])continue;seen[key]=1;
+    const groups=[0,1,2].map(k=>{const a=[];for(let j=0;j<g;j++)a.push(st+1+k*g+j);return a;});
+    const labels=rnd(["A","B","C"]),by={};groups.forEach((gr,k)=>by[labels[k]]=gr);
+    const correct="("+labels[0]+") - ("+labels[1]+") - ("+labels[2]+")";
+    const wrongs=rnd(perms.filter(x=>x!==correct));wrongs.pop();
+    const opts=perms.filter(x=>x===correct||wrongs.indexOf(x)>=0);
+    const html='<p class="given">'+E(st)+"</p>"+["A","B","C"].map(L=>"<p><b>("+L+")</b> "+by[L].map(E).join(" ")+"</p>").join("");
+    const exp="올바른 순서: "+correct+"\n원문 순서:\n"+Array.from({length:w},(_,k)=>(k+1)+". "+p.sents[st+k].en).join("\n");
+    out.push(mkMC(p.id,key,"글의 순서","주어진 글 다음에 이어질 글의 순서로 가장 적절한 것은?",html,opts,opts.indexOf(correct),exp));
+  }
+  return out;
+}
+function itemHTML(ctx,item,no){return mcqHTML(ctx,item,no);}
+function addWrong(item){S.wrong[item.key]=item;save();updBadge();}
+function delWrong(key){if(S.wrong[key]){delete S.wrong[key];save();updBadge();}}
+function updBadge(){const b=$(".seg .badge");const n=wrongCount();if(b){b.textContent=n;b.style.display=n?"":"none";}}
+
+function viewQuiz(){
+  const z=ui.qz,p=byId[z.pid];
+  let h='<div class="top"><h1>문제 풀이</h1></div>';
+  if(z.sub!=="wrong")h+='<select class="sel" id="qpid">'+pOptions(z.pid)+'</select>';
+  h+='<div class="seg">'+[["preset","기본 문제"],["drill","자동 문제"],["ai","AI 문제"],["wrong","오답"]].map(m=>'<button data-act="qsub" data-m="'+m[0]+'" class="'+(z.sub===m[0]?"on":"")+'">'+m[1]+(m[0]==="wrong"?'<span class="badge" style="'+(wrongCount()?"":"display:none")+'">'+wrongCount()+'</span>':"")+'</button>').join("")+'</div>';
+  if(z.sub==="preset"){
+    h+='<div class="note">'+esc(p.title)+' · 미리 만들어 둔 문제 '+p.qs.length+'개 (바뀌지 않아요)</div>'+presetItems(p).map((it,i)=>mcqHTML("p",it,i+1)).join("");
+  }else if(z.sub==="drill"){
+    const dk=p.id+":"+z.dm;
+    if(!z.drills[dk])z.drills[dk]=z.dm==="blank"?genBlanks(p,6):genOrders(p,3);
+    h+='<div class="seg"><button data-act="dmode" data-m="blank" class="'+(z.dm==="blank"?"on":"")+'">빈칸 (어휘)</button><button data-act="dmode" data-m="order" class="'+(z.dm==="order"?"on":"")+'">글의 순서</button></div>';
+    h+='<div class="toolbar"><span>자동으로 만든 5지선다예요</span><span class="sp"></span>'+(z.dm==="blank"?'<label><input type="checkbox" data-act="hideko" '+(S.hideKo?"":"checked")+'> 해석 보기</label>':"")+'<button class="sm" data-act="regen">새로 만들기</button></div>';
+    h+=z.drills[dk].length?z.drills[dk].map((it,i)=>mcqHTML("d",it,i+1)).join(""):'<div class="empty">이 지문은 만들 수 있는 문제가 없어요.</div>';
+  }else if(z.sub==="ai"){h+=aiView(p);}
+  else{
+    const keys=Object.keys(S.wrong);
+    h+=keys.length?'<div class="note">틀린 문제예요. 다시 풀어서 맞히면 목록에서 사라져요.</div>'+keys.map(k=>mcqHTML("w",S.wrong[k],0)).join(""):'<div class="empty">오답이 없어요. 문제를 풀면 틀린 문제가 여기에 모여요.</div>';
+  }
+  return h;
+}
+
+/* ---------- AI ---------- */
+function aiView(p){
+  const z=ui.qz,set=S.ai[p.id];
+  let h="";
+  h+='<div class="note">AI가 이 지문으로 새 문제를 만들어요. 만들 때마다 이 탭의 문제만 교체되고, 기본 문제는 그대로예요.</div>';
+  h+='<div class="field"><label>Claude API 키 (이 브라우저에만 저장돼요)</label><input id="apikey" type="password" placeholder="sk-ant-..." value="'+attr(S.key||"")+'" autocomplete="off"></div>';
+  h+='<div class="field"><label>모델</label><input id="aimodel" value="'+attr(S.model||"")+'"></div>';
+  h+='<div class="field"><label>유형</label><select id="aikind">'+["혼합","주제/요지","제목","어법","어휘 적절성","빈칸 추론","문장 순서","문장 삽입","요약문 빈칸"].map(k=>'<option'+(z.aiKind===k?" selected":"")+'>'+k+'</option>').join("")+'</select></div>';
+  h+='<div class="field"><label>문제 수</label><select id="ain">'+[2,3,4,5].map(n=>'<option'+(z.aiN===n?" selected":"")+'>'+n+'</option>').join("")+'</select></div>';
+  h+='<button class="pri" style="width:100%;min-height:44px" data-act="aigen"'+(z.aiBusy?" disabled":"")+'>'+(z.aiBusy?'<span class="spin"></span>만드는 중…':'AI로 새 문제 만들기')+'</button>';
+  if(z.aiErr)h+='<div class="err">'+esc(z.aiErr)+'</div>';
+  if(set&&set.qs.length){
+    h+='<div class="note" style="margin-top:14px">'+esc(p.title)+' · AI 문제 '+set.qs.length+'개 · '+esc(new Date(set.at).toLocaleString())+' · AI가 만든 문제라 정답이 틀릴 수 있어요</div>';
+    h+=set.qs.map((q,i)=>mcqHTML("a",{kind:"mcq",pid:p.id,ai:q,key:"a:"+p.id+":"+set.at+":"+i},i+1)).join("");
+  }
+  return h;
+}
+async function aiGen(){
+  const z=ui.qz,p=byId[z.pid];
+  S.key=($("#apikey")||{}).value||S.key;S.model=($("#aimodel")||{}).value||S.model;
+  z.aiKind=$("#aikind").value;z.aiN=parseInt($("#ain").value,10);save();
+  if(!S.key){z.aiErr="API 키를 먼저 입력해 주세요.";render();return;}
+  z.aiBusy=true;z.aiErr="";render();
+  const text=p.sents.map(s=>s.en).join(" ");
+  const prompt="다음 영어 지문으로 대한민국 고등학교 1학년 모의고사 스타일의 5지선다 객관식 문제를 "+z.aiN+"개 만들어라.\n유형: "+z.aiKind+(z.aiKind==="혼합"?" (서로 다른 유형으로)":"")+"\n\n[지문]\n"+text+"\n\n규칙:\n- 문제 지시문(q)은 한국어 모의고사 말투로 쓴다. 예: 다음 빈칸에 들어갈 말로 가장 적절한 것은?\n- 빈칸, 밑줄, 문장 순서, 문장 삽입 위치, 요약문처럼 지문 형태가 필요한 유형은 body에 가공된 지문 전체를 넣는다. (삽입은 ( ① )~( ⑤ ) 표시, 순서는 (A)(B)(C) 단락, 어법/어휘는 ①~⑤ 밑줄 표시) 지문이 필요 없으면 body는 빈 문자열.\n- choices는 정확히 5개이며 번호 기호(①, 1.)를 붙이지 않는다.\n- answer는 정답 번호(1~5). 정답이 하나뿐인지 반드시 검증한다.\n- exp는 한국어 해설 2~3문장.\n- 출력은 JSON 배열만. 설명이나 코드블록 없이.\n스키마: [{\"kind\":\"빈칸 추론\",\"q\":\"...\",\"body\":\"...\",\"choices\":[\"\",\"\",\"\",\"\",\"\"],\"answer\":3,\"exp\":\"...\"}]";
+  try{
+    const ctl=new AbortController();const to=setTimeout(()=>ctl.abort(),90000);
+    const r=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",signal:ctl.signal,headers:{"content-type":"application/json","x-api-key":S.key,"anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true"},body:JSON.stringify({model:S.model,max_tokens:4000,system:"You output only valid JSON. No markdown, no commentary.",messages:[{role:"user",content:prompt}]})});
+    clearTimeout(to);
+    const d=await r.json();
+    if(!r.ok)throw new Error((d&&d.error&&d.error.message)||("HTTP "+r.status));
+    let t=(d.content||[]).filter(c=>c.type==="text").map(c=>c.text).join("");
+    t=t.replace(/```json|```/g,"");const a=t.indexOf("["),b=t.lastIndexOf("]");
+    const arr=JSON.parse(t.slice(a,b+1));
+    const qs=arr.filter(x=>x&&x.q&&Array.isArray(x.choices)&&x.choices.length===5&&x.answer>=1&&x.answer<=5).map(x=>({kind:x.kind||z.aiKind,q:x.q,body:x.body||"",choices:x.choices.map(String),a:x.answer-1,exp:x.exp||""}));
+    if(!qs.length)throw new Error("문제 형식을 읽지 못했어요. 다시 시도해 주세요.");
+    S.ai[p.id]={at:Date.now(),qs:qs};save();
+  }catch(e){
+    z.aiErr="문제를 만들지 못했어요: "+(e.name==="AbortError"?"시간이 초과됐어요.":e.message)+"\n(API 키, 모델 이름, 인터넷 연결을 확인해 주세요. 브라우저가 직접 호출을 막는 경우도 있어요.)";
+  }
+  z.aiBusy=false;render();
+}
+
+/* ================= VOCAB ================= */
+function vocabAll(){
+  if(ui._va)return ui._va;
+  const m=new Map();
+  P.forEach(p=>p.vocab.forEach(v=>{const k=v.w.toLowerCase();let o=m.get(k);if(!o){o={w:v.w,m:v.m,k:k,src:[]};m.set(k,o);}else if(o.m.indexOf(v.m)<0&&v.m.indexOf(o.m)<0)o.m+=" / "+v.m;if(o.src.indexOf(p.id)<0)o.src.push(p.id);}));
+  return ui._va=Array.from(m.values());
+}
+function vocabFiltered(){
+  const f=ui.vc.filter;let a=vocabAll();
+  if(f==="tb")a=a.filter(o=>o.src.some(id=>byId[id].group==="tb"));
+  else if(f==="mock")a=a.filter(o=>o.src.some(id=>byId[id].group==="mock"));
+  else if(f==="know")a=a.filter(o=>S.vs[o.k]==="know");
+  else if(f==="unsure")a=a.filter(o=>S.vs[o.k]==="unsure");
+  else if(f==="wrong")a=a.filter(o=>S.vw[o.k]);
+  else if(f.indexOf("p:")===0)a=a.filter(o=>o.src.indexOf(f.slice(2))>=0);
+  return a;
+}
+function vmark(k){const s=S.vs[k]||"";return '<button class="sm'+(s==="know"?" ok":"")+'" data-act="vmark" data-k="'+attr(k)+'" data-v="know" style="'+(s==="know"?"border-color:var(--ok);color:var(--ok);font-weight:700":"")+'">외웠어요</button><button class="sm" data-act="vmark" data-k="'+attr(k)+'" data-v="unsure" style="'+(s==="unsure"?"border-color:var(--warn);color:var(--warn);font-weight:700":"")+'">헷갈려요</button>';}
+function viewVocab(){
+  const v=ui.vc,list=vocabFiltered(),all=vocabAll();
+  let h='<div class="top"><h1>단어 공부</h1></div>';
+  const fo=(val,label)=>'<option value="'+val+'"'+(v.filter===val?" selected":"")+'>'+label+'</option>';
+  const pg=(grp,label)=>'<optgroup label="'+label+'">'+P.filter(p=>p.group===grp).map(p=>fo("p:"+p.id,esc(p.title)+(p.kind?" · "+esc(p.kind):""))).join("")+'</optgroup>';
+  h+='<select class="sel" id="vfilter">'+fo("all","전체 ("+all.length+")")+fo("tb","교과서만")+fo("mock","모의고사만")+fo("unsure","헷갈려요 ("+all.filter(o=>S.vs[o.k]==="unsure").length+")")+fo("know","외웠어요")+fo("wrong","틀린 단어 ("+all.filter(o=>S.vw[o.k]).length+")")+pg("tb","교과서 지문별")+pg("mock","모의고사 지문별")+'</select>';
+  h+='<div class="seg">'+[["list","목록"],["card","카드"],["mc","뜻 맞히기"],["spell","영단어 쓰기"]].map(m=>'<button data-act="vmode" data-m="'+m[0]+'" class="'+(v.mode===m[0]?"on":"")+'">'+m[1]+'</button>').join("")+'</div>';
+  if(!list.length)return h+'<div class="empty">이 조건에 맞는 단어가 없어요.</div>';
+  if(v.mode==="list"){
+    h+='<div class="toolbar"><span>'+list.length+'개</span><span class="sp"></span><label><input type="checkbox" data-act="hidem" '+(v.hideM?"checked":"")+'> 뜻 가리기</label></div><div class="'+(v.hideM?"hidem":"")+'">';
+    h+=list.map(o=>'<div class="vi"><div class="vt"><b>'+esc(o.w)+'</b><button class="sm ghost" data-act="speak" data-w="'+attr(o.w)+'" aria-label="발음">🔊</button><span class="vm" data-act="showm">'+esc(o.m)+'</span></div><div class="vs">'+o.src.map(id=>'<button class="chip" data-act="vjump" data-pid="'+id+'" data-w="'+attr(o.w)+'">'+esc(byId[id].title.replace("교과서 ","").replace("모의고사 ","모의 "))+'</button>').join("")+'<span class="sp1"></span>'+vmark(o.k)+'</div></div>').join("");
+    return h+'</div>';
+  }
+  if(!v.ses||v.ses.mode!==v.mode||v.ses.filter!==v.filter)startSes();
+  return h+sesView();
+}
+function startSes(keys){
+  const v=ui.vc,list=vocabFiltered();
+  const ks=keys||rnd(list.map(o=>o.k));
+  v.ses={mode:v.mode,filter:v.filter,order:ks,i:0,flip:false,done:false,pick:null,fb:null,ok:0,bad:[]};
+}
+function vobj(k){return vocabAll().find(o=>o.k===k);}
+function sesView(){
+  const s=ui.vc.ses,n=s.order.length;
+  if(!n)return '<div class="empty">단어가 없어요.</div>';
+  if(s.done){return '<div class="score"><b>'+(s.mode==="card"?"끝!":s.ok+" / "+n)+'</b><p>'+(s.mode==="card"?"헷갈려요 "+s.bad.length+"개":"틀린 단어 "+s.bad.length+"개")+'</p><button class="pri" data-act="sesrestart">처음부터</button> '+(s.bad.length?'<button data-act="sesbad">틀린·헷갈린 것만</button>':"")+'</div>';}
+  const o=vobj(s.order[s.i]);
+  const prog='<div class="cnt">'+(s.i+1)+' / '+n+'</div><div class="prog"><i style="width:'+((s.i)/n*100)+'%"></i></div>';
+  if(s.mode==="card"){
+    return prog+'<div class="flash2" data-act="vflip"><div class="w">'+esc(o.w)+'</div>'+(s.flip?'<div class="m">'+esc(o.m)+'</div><div class="s">'+o.src.map(id=>esc(byId[id].title)).join(", ")+'</div>':'<div class="s">탭해서 뜻 보기</div>')+'<button class="sm ghost" data-act="speak" data-w="'+attr(o.w)+'">🔊</button></div><div class="cnav"><button data-act="vcard" data-v="unsure">헷갈려요</button><button class="pri" data-act="vcard" data-v="know">외웠어요</button></div>';
+  }
+  if(s.mode==="mc"){
+    if(!s.q||s.q.k!==o.k){const pool=rnd(vocabAll().filter(x=>x.k!==o.k&&x.m!==o.m)).slice(0,3).map(x=>x.m);s.q={k:o.k,opts:rnd(pool.concat([o.m]))};}
+    return prog+'<div class="big">'+esc(o.w)+' <button class="sm ghost" data-act="speak" data-w="'+attr(o.w)+'">🔊</button></div><div class="mc">'+s.q.opts.map((m,i)=>{const done=s.pick!==null;const c=done?(m===o.m?" right":(i===s.pick?" wrong":"")):"";return '<button class="ch'+c+'" data-act="vpick" data-i="'+i+'"'+(done?" disabled":"")+'>'+esc(m)+'</button>';}).join("")+'</div>'+(s.pick!==null?'<div class="qfoot"><button class="pri" data-act="vnext">다음</button></div>':"");
+  }
+  const fb=s.fb;
+  return prog+'<div class="big" style="font-family:inherit;font-size:24px">'+esc(o.m)+'</div><input class="spellin" id="spell" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" placeholder="영단어를 입력"'+(fb?" disabled":"")+' value="'+(fb?attr(fb.val):"")+'">'+(fb?'<div class="exp '+(fb.ok?"ok":"no")+'"><div class="res">'+(fb.ok?"정답!":"오답 — "+esc(o.w))+'</div></div><div class="qfoot"><button class="pri" data-act="vnext">다음</button></div>':'<div class="qfoot"><button class="pri" data-act="vspell">확인</button></div>');
+}
+function sesNext(){const s=ui.vc.ses;s.i++;s.flip=false;s.pick=null;s.fb=null;s.q=null;if(s.i>=s.order.length)s.done=true;render();}
+
+/* ================= events ================= */
+document.addEventListener("click",function(e){
+  const t=e.target;
+  const vw=t.closest&&t.closest("mark.vw");
+  if(vw){const p=byId[ui.st.pid];const v=p.vocab[+vw.dataset.v];const pop=$("#pop");pop.innerHTML='<b>'+esc(v.w)+'</b><span>'+esc(v.m)+'</span><button data-act="speak" data-w="'+attr(v.w)+'">🔊</button><button data-act="popx">닫기</button>';pop.hidden=false;e.stopPropagation();return;}
+  if(!t.closest("#pop"))$("#pop").hidden=true;
+  const nav=t.closest("#nav button");if(nav){ui.tab=nav.dataset.tab;render(true);return;}
+  const el=t.closest("[data-act]");
+  if(!el){
+    const sent=t.closest(".mode-hide .sent");if(sent){sent.classList.toggle("open");}
+    return;
+  }
+  const a=el.dataset.act,p=ui.st.pid?byId[ui.st.pid]:null;
+  switch(a){
+   case "openp":ui.st.pid=el.dataset.pid;ui.st.mode="full";ui.st.ci=0;ui.st.copen=false;ui.st.cdone=false;ui.st.only=false;render(true);break;
+   case "back":ui.st.pid=null;render(true);break;
+   case "smode":ui.st.mode=el.dataset.m;ui.st.ci=0;ui.st.copen=false;ui.st.cdone=false;render();break;
+   case "gram":ui.st.gram=el.checked;render();break;
+   case "only":ui.st.only=el.checked;ui.st.ci=0;ui.st.cdone=false;render();break;
+   case "openall":document.querySelectorAll(".mode-hide .sent").forEach(x=>x.classList.add("open"));break;
+   case "closeall":document.querySelectorAll(".mode-hide .sent").forEach(x=>x.classList.remove("open"));break;
+   case "mark":{
+     const sent=el.closest(".sent"),i=sent.dataset.i,k=p.id+":"+i,v=el.dataset.v;
+     if(S.sent[k]===v)delete S.sent[k];else S.sent[k]=v;save();
+     const stt=S.sent[k]||"";sent.classList.remove("know","unsure");if(stt)sent.classList.add(stt);
+     sent.querySelectorAll(".mkrow button").forEach(b=>b.classList.toggle("on",b.dataset.v===stt));
+     break;}
+   case "copen":ui.st.copen=!ui.st.copen;render();break;
+   case "cmark":{
+     const idx=p.sents.map((_,i)=>i).filter(i=>!ui.st.only||sentState(p.id,i)==="unsure");
+     const i=idx[ui.st.ci],k=p.id+":"+i;S.sent[k]=el.dataset.v;save();
+     if(ui.st.ci<idx.length-1){ui.st.ci++;ui.st.copen=false;}else ui.st.cdone=true;
+     render();break;}
+   case "cprev":if(ui.st.ci>0){ui.st.ci--;ui.st.copen=false;render();}break;
+   case "cnext":{const idx=p.sents.map((_,i)=>i).filter(i=>!ui.st.only||sentState(p.id,i)==="unsure");if(ui.st.ci<idx.length-1){ui.st.ci++;ui.st.copen=false;render();}else{ui.st.cdone=true;render();}break;}
+   case "creplay":ui.st.only=el.dataset.only==="1";ui.st.ci=0;ui.st.cdone=false;ui.st.copen=false;render(true);break;
+   case "gotoquiz":ui.qz.pid=p.id;ui.qz.sub="preset";ui.tab="quiz";render(true);break;
+   case "speak":speak(el.dataset.w);break;
+   case "popx":$("#pop").hidden=true;break;
+   /* quiz */
+   case "qsub":ui.qz.sub=el.dataset.m;render();break;
+   case "dmode":ui.qz.dm=el.dataset.m;render();break;
+   case "hideko":S.hideKo=!el.checked;document.body.classList.toggle("hideko",!!S.hideKo);save();break;
+   case "regen":delete ui.qz.drills[ui.qz.pid+":"+ui.qz.dm];render();break;
+   case "choose":{const sk=el.dataset.sk;if(ui.qz.done[sk])break;ui.qz.sel[sk]=+el.dataset.c;
+     const card=el.closest(".q");card.querySelectorAll(".ch").forEach(b=>b.classList.toggle("pick",b===el));break;}
+   case "check":{const sk=el.dataset.sk;if(ui.qz.sel[sk]==null){toast("보기를 먼저 골라 주세요");break;}
+     const item=ui.reg[sk],q=mcqQ(item);ui.qz.done[sk]=true;
+     if(ui.qz.sel[sk]===q.a)delWrong(item.key);else addWrong(item);
+     const card=el.closest(".q");card.outerHTML=mcqHTML(sk.split("|")[0],item,card.dataset.no);break;}
+   case "reset":{const sk=el.dataset.sk;delete ui.qz.sel[sk];delete ui.qz.done[sk];const item=ui.reg[sk],card=el.closest(".q");card.outerHTML=mcqHTML(sk.split("|")[0],item,card.dataset.no);break;}
+   case "aigen":aiGen();break;
+   /* vocab */
+   case "vmode":ui.vc.mode=el.dataset.m;ui.vc.ses=null;render();break;
+   case "hidem":ui.vc.hideM=el.checked;render();break;
+   case "showm":el.classList.toggle("show");break;
+   case "vmark":{const k=el.dataset.k,v=el.dataset.v;if(S.vs[k]===v)delete S.vs[k];else S.vs[k]=v;save();
+     const row=el.parentElement;row.querySelectorAll("button[data-act=vmark]").forEach(b=>{const on=S.vs[k]===b.dataset.v;b.style.borderColor=on?(b.dataset.v==="know"?"var(--ok)":"var(--warn)"):"";b.style.color=on?(b.dataset.v==="know"?"var(--ok)":"var(--warn)"):"";b.style.fontWeight=on?"700":"";});break;}
+   case "vjump":openStudy(el.dataset.pid,el.dataset.w);break;
+   case "vflip":ui.vc.ses.flip=!ui.vc.ses.flip;render();break;
+   case "vcard":{const s=ui.vc.ses,k=s.order[s.i];S.vs[k]=el.dataset.v;save();if(el.dataset.v==="unsure")s.bad.push(k);sesNext();break;}
+   case "vpick":{const s=ui.vc.ses,o=vobj(s.order[s.i]);s.pick=+el.dataset.i;const ok=s.q.opts[s.pick]===o.m;if(ok){s.ok++;delete S.vw[o.k];}else{S.vw[o.k]=1;s.bad.push(o.k);}save();render();break;}
+   case "vspell":{const s=ui.vc.ses,o=vobj(s.order[s.i]),val=($("#spell").value||"").trim(),ok=val.toLowerCase()===o.w.toLowerCase();s.fb={ok:ok,val:val};if(ok){s.ok++;delete S.vw[o.k];}else{S.vw[o.k]=1;s.bad.push(o.k);}save();render();break;}
+   case "vnext":sesNext();break;
+   case "sesrestart":startSes();render();break;
+   case "sesbad":startSes(rnd(ui.vc.ses.bad.filter((k,i,a)=>a.indexOf(k)===i)));render();break;
+  }
+});
+document.addEventListener("change",function(e){
+  const t=e.target;
+  if(t.id==="qpid"){ui.qz.pid=t.value;render();}
+  else if(t.id==="vfilter"){ui.vc.filter=t.value;ui.vc.ses=null;render();}
+  else if(t.dataset&&t.dataset.act&&t.type==="checkbox"){/* handled in click */}
+});
+document.addEventListener("keydown",function(e){
+  if(e.key==="Enter"){const t=e.target;
+    if(t.id==="spell"){const b=document.querySelector("[data-act=vspell]");if(b)b.click();}
+}
+});
+document.body.classList.toggle("hideko",!!S.hideKo);
+render(true);
+})();
+</script>
+</body></html>
